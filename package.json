@@ -26,16 +26,3 @@
     }
   }
 }
-{
-  "headers": {
-    "/script.js": {
-      "Content-Type": "application/javascript"
-    }
-  }
-  {
-  "headers": {
-    "/style.css": {
-      "Content-Type": "text/css"
-    }
-  }
-}
