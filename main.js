@@ -99,19 +99,5 @@ const broadcast = (ws, message, includeSelf) => {
 
 
 app.get('/', function(req,res) {
-  res.sendfile('index.html');
+  res.sendfile('webs/index.html');
 });
-
-
-
-app.get('/', function(req,res) {
-  res.sendfile('script.js');
-});
-
-
-
-
-app.get('/', function(req,res) {
-  res.sendfile('style.css');
-});
-
