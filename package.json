@@ -18,11 +18,3 @@
     "ws": "^8.2.2"
   }
 }
-
-{
-  "headers": {
-    "/static/**": {
-      "X-Content-Type-Options": "nosniff"
-    }
-  }
-}
