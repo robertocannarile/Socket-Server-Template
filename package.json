@@ -18,3 +18,19 @@
     "ws": "^8.2.2"
   }
 }
+
+{
+  "headers": {
+    "/style.css": {
+      "Content-Type": "text/css"
+    }
+  }
+}
+{
+  "headers": {
+    "/script.js": {
+      "Content-Type": "application/javascript"
+    }
+  }
+}
+
