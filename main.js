@@ -101,3 +101,11 @@ const broadcast = (ws, message, includeSelf) => {
 app.get('/', function(req,res) {
   res.sendfile('webs/index.html');
 });
+
+app.get('/', function(req,res) {
+  res.sendfile('webs/style.css');
+});
+
+app.get('/', function(req,res) {
+  res.sendfile('webs/script.js');
+});
