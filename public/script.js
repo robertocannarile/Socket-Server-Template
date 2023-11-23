@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   ws.addEventListener("message", (message) => {
-    console.log(message);
+    //console.log(message);
     window.alert(message);
   });
 
