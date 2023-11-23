@@ -1,4 +1,5 @@
-let ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
+document.addEventListener('DOMContentLoaded', function () {
+  let ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
 
 //Slider 1, Ogni volta che cambio un valore allo slider, li reinvia entrambi
 
@@ -63,7 +64,4 @@ controlTD2.addEventListener('input', (event) =>{
   ws.addEventListener("close", (event) => {
     console.log('websocket closed');
   });
-
-
-
-
+});
