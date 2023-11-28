@@ -1,5 +1,7 @@
 const createStaticServer = require("./modules/staticServer");
 const createWebSocketServer = require("./modules/webSocketServer");
+
+
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -17,6 +19,8 @@ console.log(`Server started on port ${serverPort} in stage ${process.env.NODE_EN
 
 
 
+
+// MODULES START
 
 // web socket module
 const wss = createWebSocketServer(server);

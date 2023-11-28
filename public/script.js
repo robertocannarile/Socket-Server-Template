@@ -8,14 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   
-  ws.addEventListener('message', function (event) {
-    if (event.data) {
-          console.log(event.data)
-          let countContainer = document.getElementById ('controlTD')
-            const widgetParent = document.getElementById('countContainer');
-            widgetParent.innerHTML = event.data
-    }
-  });
+  
 
 
   
@@ -56,4 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
     window.alert('websocket closed');
     console.log('websocket closed');
   });
+
+
+  /*ws.addEventListener('message', function (event) {
+    if (event.data) {
+          console.log(event.data)
+          //let countContainer = document.getElementById('controlTD');
+          //const widgetParent = document.getElementById('countContainer');
+          //widgetParent.innerHTML = event.data
+    }
+  });*/
 });

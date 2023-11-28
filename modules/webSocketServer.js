@@ -9,7 +9,8 @@ const createWebSocketServer = (server) => {
         : new WebSocket.Server({ port: 5001 });
     
     
-    wss.on("connection", function (ws, req) {
+  wss.on("connection", function (ws, req) {
+    
       console.log("Connection Opened");
       console.log("Client size: ", wss.clients.size);
   
