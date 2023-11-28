@@ -1,8 +1,9 @@
+
+const createStaticServer = require(".modules/staticServer");
+
 const http = require("http");
 const express = require("express");
 const app = express();
-
-
 
 
 
@@ -80,21 +81,8 @@ const broadcast = (ws, message, includeSelf) => {
 };
 
 
-// webapp folder getter
-app.use(express.static('public', {
-  setHeaders: (res, path) => {
-    
-    if (path.endsWith('.css')) {
-      res.setHeader('Content-Type', 'text/css');
-    } else if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }else if (path.endsWith('.html')) {
-      res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-    }
-  },
-}));
+// web app statica
+const staticApp = createStaticServer();
 
 
-
-// client web pages
 
