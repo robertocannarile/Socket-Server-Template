@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   ws.addEventListener("message", (event) => {
 
-    // Verifica se il messaggio non è JSON (ad esempio, "ping") e gestiscilo di conseguenza
+    // Verifica se il messaggio non è JSON (ad esempio, "ping" serve a tenere il server attivo)
     if (event.data === 'ping') {
       console.log('Ricevuto messaggio ping');
       return;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const receivedData = JSON.parse(event.data);
         console.log(receivedData);
 
-        // Esempio di utilizzo dei dati ricevuti
+        // dati ricevuti
         if (receivedData.track) {
           console.log(`Nome della traccia: ${receivedData.track}`);
         }
@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
           console.log(`Nome dell'artista: ${receivedData.artist}`);
         }
 
-        // Puoi gestire ulteriormente i dati ricevuti a tuo piacimento
       } catch (error) {
         console.error('Errore durante l\'analisi del JSON:', error);
       }
