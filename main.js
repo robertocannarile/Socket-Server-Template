@@ -1,5 +1,5 @@
 const createStaticServer = require("./modules/staticServer");
-const createStaticServer = require("./modules/webSocketServer");
+const createWebSocketServer = require("./modules/webSocketServer");
 const http = require("http");
 const express = require("express");
 const app = express();
