@@ -15,8 +15,10 @@ const createWebSocketServer = (server) => {
     
     
   wss.on("connection", function (ws, req) {
-
-    console.log("Connection Opened");
+    // Genera un id univoco per il client appena connesso
+    const clientId = uuidv4();
+      
+    console.log(`Connection Opened for Client ${clientId}`);
     console.log("Client size: ", wss.clients.size);
     
 
