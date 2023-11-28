@@ -1,11 +1,9 @@
-
-
 const WebSocket = require("ws");
-
 let keepAliveId;
+let wss;  
 
 const createWebSocketServer = (server) => {
-    const wss =
+    wss =
       process.env.NODE_ENV === "production"
         ? new WebSocket.Server({ server })
         : new WebSocket.Server({ port: 5001 });
