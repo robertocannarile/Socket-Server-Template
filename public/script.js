@@ -51,12 +51,4 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  /*ws.addEventListener('message', function (event) {
-    if (event.data) {
-          console.log(event.data)
-          //let countContainer = document.getElementById('controlTD');
-          //const widgetParent = document.getElementById('countContainer');
-          //widgetParent.innerHTML = event.data
-    }
-  });*/
 });
