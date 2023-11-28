@@ -2,27 +2,9 @@ const http = require("http");
 const express = require("express");
 const app = express();
 
-//app.use(express.static("public"));
-// require("dotenv").config();
 
 
 
-app.use(express.static('public', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.css')) {
-      res.setHeader('Content-Type', 'text/css');
-    }
-  },
-}));
-
-
-app.use(express.static('public', {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }
-  },
-}));
 
 
 const serverPort = process.env.PORT || 3000;
