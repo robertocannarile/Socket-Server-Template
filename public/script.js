@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
   let controlTD2 = document.querySelector('.controlTD2');
 
 
-  
-  
 
 
-  
+
+
+
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
-  controlTD.addEventListener('input', (event) =>{
+  controlTD.addEventListener('input', (event) => {
     console.log(controlTD.value);
     sliderChanged();
   });
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sliderChanged();
   });
 
-  
+
 
   function sliderChanged() {
     let data = JSON.stringify({ 'slider1': controlTD.value, 'slider2': controlTD2.value });
@@ -36,17 +36,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   ws.addEventListener("message", (event) => {
-    // event.data contiene il messaggio ricevuto dal server
-    const receivedData = JSON.parse(event.data);
-    console.log(receivedData);
 
-    // Esempio di utilizzo dei dati ricevuti
-    if (receivedData.track) {
-      console.log(`Nome della traccia: ${receivedData.track}`);
+    // Verifica se il messaggio non è JSON (ad esempio, "ping") e gestiscilo di conseguenza
+    if (event.data === 'ping') {
+      console.log('Ricevuto messaggio ping');
+      return;
+    } else {
+      // event.data contiene il messaggio ricevuto dal server
+      try {
+        const receivedData = JSON.parse(event.data);
+        console.log(receivedData);
+
+        // Esempio di utilizzo dei dati ricevuti
+        if (receivedData.track) {
+          console.log(`Nome della traccia: ${receivedData.track}`);
+        }
+        if (receivedData.artist) {
+          console.log(`Nome dell'artista: ${receivedData.artist}`);
+        }
+
+        // Puoi gestire ulteriormente i dati ricevuti a tuo piacimento
+      } catch (error) {
+        console.error('Errore durante l\'analisi del JSON:', error);
+      }
     }
-    if (receivedData.artist) {
-      console.log(`Nome dell'artista: ${receivedData.artist}`);
-    }
+
   });
 
   ws.addEventListener("error", (error) => {
