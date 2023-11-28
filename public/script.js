@@ -35,9 +35,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  ws.addEventListener("message", (message) => {
-    console.log(message);
-    //window.alert(message);
+  ws.addEventListener("message", (event) => {
+    // event.data contiene il messaggio ricevuto dal server
+    const receivedData = JSON.parse(event.data);
+    console.log(receivedData);
+
+    // Esempio di utilizzo dei dati ricevuti
+    if (receivedData.track) {
+      console.log(`Nome della traccia: ${receivedData.track}`);
+    }
+    if (receivedData.artist) {
+      console.log(`Nome dell'artista: ${receivedData.artist}`);
+    }
   });
 
   ws.addEventListener("error", (error) => {
