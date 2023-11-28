@@ -1,16 +1,20 @@
-// staticServer.js
+// modules/staticServer.js
 const express = require("express");
+const path = require("path");
 
 const createStaticServer = () => {
   const app = express();
 
-  app.use(express.static('public', {
-    setHeaders: (res, path) => {
-      if (path.endsWith('.css')) {
+  // Usa il percorso assoluto per indicizzare la cartella public
+  const publicPath = path.join(__dirname, "..", "public");
+
+  app.use(express.static(publicPath, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.css')) {
         res.setHeader('Content-Type', 'text/css');
-      } else if (path.endsWith('.js')) {
+      } else if (filePath.endsWith('.js')) {
         res.setHeader('Content-Type', 'application/javascript');
-      } else if (path.endsWith('.html')) {
+      } else if (filePath.endsWith('.html')) {
         res.setHeader('Content-Type', 'text/html; charset=UTF-8');
       }
     },
