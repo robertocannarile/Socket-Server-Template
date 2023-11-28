@@ -1,5 +1,5 @@
 
-const createStaticServer = require(".modules/staticServer");
+const createStaticServer = require("./modules/staticServer");
 
 const http = require("http");
 const express = require("express");
