@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let controlTD = document.querySelector('.controlTD');
   let controlTD2 = document.querySelector('.controlTD2');
+  // Seleziona il tuo bottone utilizzando una classe o un ID appropriato
+  let customButton = document.querySelector('.customButton');
 
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
   controlTD.addEventListener('input', (event) => {
@@ -20,11 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
     sliderChanged();
   });
 
-  function sliderChanged() {
-    let data = JSON.stringify({ 'slider1': controlTD.value, 'slider2': controlTD2.value });
-    websocketSender(data);
-  }
-
+  // Aggiungi un gestore di eventi al clic del bottone
+  customButton.addEventListener('click', function () {
+    // Esegui la logica desiderata quando il bottone viene cliccato
+    console.log('Button clicked');
+    
+    // Puoi anche chiamare la funzione clientReady se necessario
+    clientReady();
+  });
 
 
 
@@ -87,7 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   //////////////// CLIENT FUNCTION ////////////////////////
-
+  function sliderChanged() {
+    let data = JSON.stringify({ 'slider1': controlTD.value, 'slider2': controlTD2.value });
+    websocketSender(data);
+  }
   function clientReady() {
     const readyMessage = JSON.stringify({ type: 'ready' });
     websocketSender(readyMessage);
