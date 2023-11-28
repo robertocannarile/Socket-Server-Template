@@ -3,14 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
+  //////////////// HTML INPUT EVENTS ////////////////////////
+
   let controlTD = document.querySelector('.controlTD');
   let controlTD2 = document.querySelector('.controlTD2');
-
-
-
-
-
-
 
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
   controlTD.addEventListener('input', (event) => {
@@ -23,18 +20,32 @@ document.addEventListener('DOMContentLoaded', function () {
     sliderChanged();
   });
 
-
-
   function sliderChanged() {
     let data = JSON.stringify({ 'slider1': controlTD.value, 'slider2': controlTD2.value });
     websocketSender(data);
   }
+
+
+
+
+
+
+
+  //////////////// WEB SOCKET DATA SENDER ////////////////////////
 
   function websocketSender(json) {
     ws.send(json);
   }
 
 
+
+
+
+
+
+  //////////////// WEB SOCKET EVENTS ////////////////////////
+
+  // evento quando il client riceve un messaggio
   ws.addEventListener("message", (event) => {
 
     // Verifica se il messaggio non è JSON (ad esempio, "ping" serve a tenere il server attivo)
@@ -61,16 +72,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
   });
-
+  
+  // evento errore connessione
   ws.addEventListener("error", (error) => {
     window.alert('websocket closed');
     console.log('websocket closed');
   });
 
+  // evento chiusura connessione
   ws.addEventListener("close", (event) => {
     window.alert('websocket closed');
     console.log('websocket closed');
   });
 
 
+  //////////////// CLIENT FUNCTION ////////////////////////
+
+  function clientReady() {
+    const readyMessage = JSON.stringify({ type: 'ready' });
+    websocketSender(readyMessage);
+  }
 });
