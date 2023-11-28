@@ -1,6 +1,5 @@
 
 const createStaticServer = require("./modules/staticServer");
-
 const http = require("http");
 const express = require("express");
 const app = express();
@@ -83,6 +82,7 @@ const broadcast = (ws, message, includeSelf) => {
 
 // web app statica
 const staticApp = createStaticServer();
+app.use(staticApp);
 
 
 
