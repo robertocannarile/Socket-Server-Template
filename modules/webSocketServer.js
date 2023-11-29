@@ -64,7 +64,7 @@ const createWebSocketServer = (server) => {
         // handle server message
         try {
           const receivedData = JSON.parse(stringifiedData);
-          handleReceivedServerMessage(receivedData);
+          handleReceivedServerMessage(receivedData, clientId);
 
         } catch (error) {
           console.error('Errore durante l\'analisi del JSON:', error);
@@ -127,7 +127,7 @@ const keepServerAlive = (wss) => {
 
 
 // handle messages related to the server
-function handleReceivedServerMessage(receivedData) {
+function handleReceivedServerMessage(receivedData, clientId) {
   if (receivedData.server_message_target === MessageTarget.Server) {
 
 
