@@ -187,7 +187,7 @@ function serverMessageSender(ServerMessageTarget, MessageType, data, ws) {
   // Converte il JSON in una stringa
   const serverMessageString = JSON.stringify(serverMessage);
 
-  ws.send(serverMessage);
+  ws.send(serverMessageString);
 }
 
 module.exports = createWebSocketServer;
