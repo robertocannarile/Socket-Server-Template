@@ -1,12 +1,10 @@
 const createStaticServer = require("./modules/staticServer");
+const getMp3File = require('./modules/experienceDataProvider');
 const createWebSocketServer = require("./modules/webSocketServer");
-
 
 const http = require("http");
 const express = require("express");
 const app = express();
-
-
 
 
 const serverPort = process.env.PORT || 3000;
@@ -29,5 +27,7 @@ const wss = createWebSocketServer(server);
 const staticApp = createStaticServer();
 app.use(staticApp);
 
-
+// download MP3 module
+const mp3App = getMp3File();
+app.use('/mp3', mp3App); // Mount the MP3 route
 

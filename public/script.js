@@ -177,11 +177,12 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
 
-  const mp3Url = 'https://www.stefanoromanelli.it/remoteAssets/sample.mp3';
+  const mp3Url = 'https://smart-perf-7d930c61dbd0.herokuapp.com/mp3';
   // Funzione per scaricare il file MP3 e immagazzinarlo in una variabile
   async function downloadMP3() {
     try {
       mp3LabelStatus.textContent = "track: " + 'downloading';
+
       // Effettua una richiesta per ottenere il file MP3
       const response = await fetch(mp3Url);
 
@@ -195,13 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const audioSource = await audioContext.decodeAudioData(audioData);
 
       // Immagazzina i dati audio nella variabile
-      const audioVariable = audioSource.getChannelData(0); // You can also use audioSource.getChannelData(1) for the right channel
+      const audioVariable = audioSource.getChannelData(0); // Puoi anche utilizzare audioSource.getChannelData(1) per il canale destro
 
       console.log('MP3 file downloaded and stored in the variable:', audioVariable);
       mp3LabelStatus.textContent = "track: " + 'done';
     } catch (error) {
-      console.error('Error while downloading the MP3 file:', error);
-      mp3LabelStatus.textContent = "track: " + 'error';
+        console.error('Error while downloading the MP3 file:', error);
+        mp3LabelStatus.textContent = "track: " + 'error';
     }
   }
 
