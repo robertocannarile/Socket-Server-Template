@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const ServerMessagePartecipantType = {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
     ClientIdConfigurator: "clientIdconfigurator", // indica che il messaggio contiene l'id che client dovrà assumere
+    PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
   }
 
   const ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
@@ -143,6 +144,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // configura id client
             configureClientId(receivedData.message_data);
+          } else if (receivedData.message_type == ServerMessagePartecipantType.PlayIndexAudioSource) {
+            
+            console.log("indext to play: " + receivedData.message_data);
           }
 
         }
@@ -196,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Aggiorna lo stato notificando che tutti
       // i media dell'esperienza sono stati scaricati
 
-      mp3LabelStatus.textContent = "track: " + 'done';
+      mp3LabelStatus.textContent = "track: " + 'done, ready to play mp3';
 
 
       clientReady();
@@ -234,8 +238,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   
 
-  
-  function playMP3(audioBuffer) {
+  // play an audio buffer from audioBuffers by index
+  function playMP3(audioBuffers, index) {
     try {
 
 
@@ -243,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const source = audioContext.createBufferSource();
 
       // Collega il buffer al buffer source
-      source.buffer = audioBuffer;
+      source.buffer = audioBuffers[index];
 
       // Collega il buffer source al contesto audio
       source.connect(audioContext.destination);
