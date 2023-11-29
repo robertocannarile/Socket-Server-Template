@@ -1,7 +1,5 @@
 const express = require("express");
-const path = require("path");
-const fetch = require('node-fetch');
-
+import fetch from 'node-fetch';
 
 const getMp3File = () => {
     const app = express();
@@ -9,7 +7,7 @@ const getMp3File = () => {
     app.get('/mp3', async (req, res) => {
         try {
           const response = await fetch('https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-          const buffer = await response.buffer();
+          const buffer = await response.arrayBuffer();
           res.set('Content-Type', 'audio/mpeg');
           res.send(buffer);
         } catch (error) {
@@ -19,7 +17,6 @@ const getMp3File = () => {
       });
   
     return app;
-  };
-
+};
 
 module.exports = getMp3File;
