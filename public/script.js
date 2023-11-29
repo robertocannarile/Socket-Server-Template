@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
   
     const clientMessageString = JSON.stringify(clientMessage);
-    ws.send(clientMessageString);
+    ws.send(audioBuffers, clientMessageString);
   }
   
 
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             
             console.log("indext to play: " + receivedData.message_data.track_index);
-            //playMP3()
+            playMP3(receivedData.message_data.track_index)
           }
 
         }
