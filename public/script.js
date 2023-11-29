@@ -220,6 +220,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Aggiorna il contenuto della label
     clienIdLabel.textContent = "id: " + clientUniqueId;
   }
+  
+  let audioSource;
 
   async function allowAudioContextAndDownloadAudioBuffers() {
 
