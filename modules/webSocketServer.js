@@ -56,6 +56,7 @@ const createWebSocketServer = (server) => {
     // on message from client
     ws.on("message", (data) => {
       let stringifiedData = data.toString();
+
       if (stringifiedData === 'pong') {
         console.log('keepAlive');
         return;
@@ -63,8 +64,7 @@ const createWebSocketServer = (server) => {
 
         // handle server message
         try {
-          const receivedData = JSON.parse(stringifiedData);
-          handleReceivedServerMessage(receivedData, clientId, ws);
+          handleReceivedServerMessage(stringifiedData, clientId, ws);
 
         } catch (error) {
           console.error('Errore durante l\'analisi del JSON:', error);
@@ -130,7 +130,9 @@ const keepServerAlive = (wss) => {
 // [receivedData] dati json ricevuti
 // [clientId] id client che ha inviato il messaggio
 // [ws] web socket del client che ha inviato il messaggio
-function handleReceivedServerMessage(receivedData, clientId, ws) {
+function handleReceivedServerMessage(stringifiedData, clientId, ws) {
+  const receivedData = JSON.parse(stringifiedData);
+
   if (receivedData.server_message_target === MessageTarget.Server) {
 
 
