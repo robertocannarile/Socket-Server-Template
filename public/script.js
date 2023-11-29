@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             
             console.log("indext to play: " + receivedData.message_data);
+            //playMP3()
           }
 
         }
@@ -218,9 +219,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Aggiorna il contenuto della label
     clienIdLabel.textContent = "id: " + clientUniqueId;
-
-    // disabilita ready button
-    debugReadyButton.disabled = true;
   }
 
   async function allowAudioContextAndDownloadAudioBuffers() {
