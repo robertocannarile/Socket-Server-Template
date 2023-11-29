@@ -157,16 +157,29 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
       console.log(`messaggio server non riconosciuto`);
     }
 
-  } else if ( // messaggio ricevuto dai client(partecipante o touchdesign)
-    receivedData.server_message_target === MessageTarget.PartecipantClient ||
-    receivedData.server_message_target === MessageTarget.TouchDesignerClient
-  ) {
+  } else if (receivedData.server_message_target === MessageTarget.PartecipantClient) {
+    // messaggio ricevuto dai client(partecipante o touchdesign)
 
-    // broadcast del messaggio a tutti 
-    broadcast(ws, stringifiedData, false);
+    if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
+      if (readyClients.length > 0) {
+        const firstClientWs = readyClients[0].ws;
+
+        const data = receivedData.message_data;
+        
+        serverMessageSender(
+          MessageTarget.PartecipantClient,
+          MessageToPartecipantType.PlayIndexAudioSource,
+          data,
+          firstClientWs)
+      }
+    }
+    
     console.log(stringifiedData);
-  } else {
+  } else if (receivedData.server_message_target === MessageTarget.PartecipantClient) { 
 
+    broadcast(ws, stringifiedData, false);
+  } else {
+    
     // other message
     console.log("messaggio ricevuto non supportato: " + stringifiedData);
   }

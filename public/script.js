@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // array dei buffer audio
   const audioBuffers = [];
   let audioContext;
-  let audioSource;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
@@ -66,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  
+
 
 
 
@@ -187,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // configura id client
             configureClientId(receivedData.message_data);
           } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
+            
             
             console.log("indext to play: " + receivedData.message_data);
           }
