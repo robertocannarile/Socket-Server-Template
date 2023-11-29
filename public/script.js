@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             
             console.log("indext to play: " + receivedData.message_data.track_index);
-            //playMP3(audioBuffers)
+            playMP3(audioBuffers, receivedData.message_data.track_index)
           }
 
         }
