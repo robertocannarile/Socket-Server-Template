@@ -14,7 +14,7 @@ const ServerMessageTarget = {
 // rappresenta il tipo di messaggio che può ottenere un Client Partecipante dell'esperienza
 const ServerMessagePartecipantType = {
 	ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
-  ClientIdConfigurator: "clientIdconfigurator", // indica che il messaggio contiene l'id che client dovrà assumere
+  ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
   PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
 }
 

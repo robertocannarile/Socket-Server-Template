@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // rappresenta il tipo di messaggio che può ottenere un Client Partecipante dell'esperienza
   const ServerMessagePartecipantType = {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
-    ClientIdConfigurator: "clientIdconfigurator", // indica che il messaggio contiene l'id che client dovrà assumere
+    ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
     PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
   }
 
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // array dei buffer audio
   const audioBuffers = [];
   let audioContext;
+  let audioSource;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
@@ -244,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
       // Crea un buffer source node
-      const source = audioContext.createBufferSource();
+      audioSource = audioContext.createBufferSource();
 
       // Collega il buffer al buffer source
       source.buffer = audioBuffers[index];
