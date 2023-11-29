@@ -200,7 +200,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // play della traccia
       //playMP3(audioBuffer);
     } catch (error) {
-      // Gestisci l'errore se necessario
+      console.error('Error while downloading and decoding the MP3 file:', error);
+      mp3LabelStatus.textContent = "track error: " + error;
     }
   }
 
