@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let controlTD = document.querySelector('.controlTD');
   let controlTD2 = document.querySelector('.controlTD2');
   // Seleziona il tuo bottone utilizzando una classe o un ID appropriato
-  let customButton = document.querySelector('.customButton');
+  let debugReadyButton = document.querySelector('.debugReadyButton');
 
   
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Aggiungi un gestore di eventi al clic del bottone
-  customButton.addEventListener('click', function () {
+  debugReadyButton.addEventListener('click', function () {
     // Esegui la logica desiderata quando il bottone viene cliccato
     console.log('Button clicked');
     
@@ -166,5 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Aggiorna il contenuto della label
     myLabel.textContent = clientUniqueId;
+
+    // disabilita ready button
+    debugReadyButton.disabled = true;
   }
 });
