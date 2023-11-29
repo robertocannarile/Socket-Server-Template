@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(receivedData);
 
         // dati ricevuti
-        if (receivedData.track) {
+        /*if (receivedData.track) {
           console.log(`Nome della traccia: ${receivedData.track}`);
         }
         if (receivedData.artist) {
           console.log(`Nome dell'artista: ${receivedData.artist}`);
-        }
+        }*/
 
       } catch (error) {
         console.error('Errore durante l\'analisi del JSON:', error);
