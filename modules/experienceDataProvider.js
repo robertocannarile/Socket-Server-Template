@@ -10,7 +10,7 @@ const getMp3File = () => {
             const fetch = (await import('node-fetch')).default;
 
             const response = await fetch('https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-            const buffer = await response.buffer();
+            const buffer = await response.arrayBuffer();
             res.set('Content-Type', 'audio/mpeg');
             res.send(buffer);
         } catch (error) {
