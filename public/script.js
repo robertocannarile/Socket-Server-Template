@@ -161,8 +161,18 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log(`Nome dell'artista: ${data.artist}`);
     }
 
-    // Call the function to download the MP3
-    await downloadMP3();
+
+    /// DEBUG ///
+    try {
+      // download traccia audio
+      const audioBuffer = await downloadMP3();
+
+      // play della traccia
+      playMP3(audioBuffer);
+    } catch (error) {
+        // Gestisci l'errore se necessario
+    }
+    
   }
   function configureClientId(data) {
     // dati ricevuti
@@ -181,30 +191,48 @@ document.addEventListener('DOMContentLoaded', function () {
   // Funzione per scaricare il file MP3 e immagazzinarlo in una variabile
   async function downloadMP3() {
     try {
-      mp3LabelStatus.textContent = "track: " + 'downloading';
+        mp3LabelStatus.textContent = "track: " + 'downloading';
 
-      // Effettua una richiesta per ottenere il file MP3
-      const response = await fetch(mp3Url);
+        // Effettua una richiesta per ottenere il file MP3
+        const response = await fetch(mp3Url);
 
-      // Ottieni i dati audio come array di byte
-      const audioData = await response.arrayBuffer();
+        // Ottieni i dati audio come array di byte
+        const audioData = await response.arrayBuffer();
 
-      // Crea un contesto audio
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // Decodifica i dati audio
+        const audioBuffer = await audioContext.decodeAudioData(audioData);
 
-      // Decodifica i dati audio
-      const audioSource = await audioContext.decodeAudioData(audioData);
-
-      // Immagazzina i dati audio nella variabile
-      const audioVariable = audioSource.getChannelData(0); // Puoi anche utilizzare audioSource.getChannelData(1) per il canale destro
-
-      console.log('MP3 file downloaded and stored in the variable:', audioVariable);
-      mp3LabelStatus.textContent = "track: " + 'done';
+        // Restituisci il buffer audio decodificato
+        return audioBuffer;
     } catch (error) {
         console.error('Error while downloading the MP3 file:', error);
         mp3LabelStatus.textContent = "track: " + 'error';
+        throw error; // Puoi scegliere di gestire l'errore in modo diverso se necessario
     }
   }
 
+  function playMP3(audioBuffer) {
+    try {
+        mp3LabelStatus.textContent = "track: " + 'playing';
+
+        // Crea un buffer source node
+        const source = audioContext.createBufferSource();
+
+        // Collega il buffer al buffer source
+        source.buffer = audioBuffer;
+
+        // Collega il buffer source al contesto audio
+        source.connect(audioContext.destination);
+
+        // Riproduci il suono
+        source.start();
+
+        // Aggiorna lo stato
+        mp3LabelStatus.textContent = "track: " + 'done';
+    } catch (error) {
+        console.error('Error while playing the MP3 file:', error);
+        mp3LabelStatus.textContent = "track: " + 'error';
+    }
+  }
   
 });
