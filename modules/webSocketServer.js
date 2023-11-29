@@ -164,7 +164,12 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
 
     // broadcast del messaggio a tutti 
     broadcast(ws, stringifiedData, false);
+  } else {
+
+    // other message
+    console.log(stringifiedData);
   }
+
 }
 
 
