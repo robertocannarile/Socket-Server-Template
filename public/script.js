@@ -285,13 +285,13 @@ document.addEventListener('DOMContentLoaded', function () {
       audioSource = audioContext.createBufferSource();
 
       // Collega il buffer al buffer source
-      source.buffer = audioBuffers[index];
+      audioSource.buffer = audioBuffers[index];
 
       // Collega il buffer source al contesto audio
-      source.connect(audioContext.destination);
+      audioSource.connect(audioContext.destination);
 
       // Riproduci il suono
-      source.start();
+      audioSource.start();
 
 
       mp3LabelStatus.textContent = "track: " + 'playing';
