@@ -43,11 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   
   // debug ready
-  debugReadyButton.addEventListener('click', function () {
-
-
-    
-  });
+  /*debugReadyButton.addEventListener('click', function () {
+  });*/
 
   allowMediaContentButtonAndDownload.addEventListener('click', function () {
 
