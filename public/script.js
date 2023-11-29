@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  
+
   // indica a quali client è rivolto il messaggio (partecipanti esperienza o se è per TouchDesigner)
   const ServerMessageTarget = {
     PartecipantClient: "partecipant_client",
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
     ClientIdConfigurator: "clientIdconfigurator", // indica che il messaggio contiene l'id che client dovrà assumere
   }
-  
+
   const ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
   let clientUniqueId = null;
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Seleziona il tuo bottone utilizzando una classe o un ID appropriato
   let debugReadyButton = document.querySelector('.debugReadyButton');
 
-  
+
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
   controlTD.addEventListener('input', (event) => {
     console.log(controlTD.value);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   debugReadyButton.addEventListener('click', function () {
     // Esegui la logica desiderata quando il bottone viene cliccato
     console.log('Button clicked');
-    
+
     // Puoi anche chiamare la funzione clientReady se necessario
     clientReady();
   });
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     handleServerMessage(event.data);
   });
-  
+
   // evento errore connessione
   ws.addEventListener("error", (error) => {
     window.alert('websocket closed');
@@ -129,22 +129,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // verifica se il contenuto del messaggio è di interesse per il client partecipante
         if (receivedData.server_message_target == ServerMessageTarget.PartecipantClient) {
-          
+
           // messaggio di tipo configurazione dell'esperienza
           if (receivedData.message_type == ServerMessagePartecipantType.ExperienceConfigurator) {
-            
+
             // configura esperienza 
             configureExperience(receivedData.message_data);
 
           } else if (receivedData.message_type == ServerMessagePartecipantType.ClientIdConfigurator) {
-            
+
             // configura id client
             configureClientId(receivedData.message_data);
           }
 
         }
 
-        
+
 
       } catch (error) {
         console.error('Errore durante l\'analisi del JSON:', error);
@@ -171,12 +171,17 @@ document.addEventListener('DOMContentLoaded', function () {
       const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
       audioBuffer.push(audioBuffer);
 
+
+      // Aggiorna lo stato notificando che tutti
+      // i media dell'esperienza sono stati scaricati
+
+      mp3LabelStatus.textContent = "track: " + 'done';
       // play della traccia
       //playMP3(audioBuffer);
     } catch (error) {
-        // Gestisci l'errore se necessario
+      // Gestisci l'errore se necessario
     }
-    
+
   }
   function configureClientId(data) {
     // dati ricevuti
@@ -188,56 +193,57 @@ document.addEventListener('DOMContentLoaded', function () {
     // disabilita ready button
     debugReadyButton.disabled = true;
   }
-  
 
 
-  
+
+
   // Funzione scarica e restituisce il buffer MP3  
   async function downloadMP3(mp3Url) {
     try {
-        mp3LabelStatus.textContent = "track: " + 'downloading';
+      mp3LabelStatus.textContent = "track: " + 'downloading';
 
-        // Effettua una richiesta per ottenere il file MP3
-        const response = await fetch(mp3Url);
+      // Effettua una richiesta per ottenere il file MP3
+      const response = await fetch(mp3Url);
 
-        // Ottieni i dati audio come array di byte
-        const audioData = await response.arrayBuffer();
+      // Ottieni i dati audio come array di byte
+      const audioData = await response.arrayBuffer();
 
-        // Decodifica i dati audio
-        const audioBuffer = await audioContext.decodeAudioData(audioData);
+      // Decodifica i dati audio
+      const audioBuffer = await audioContext.decodeAudioData(audioData);
 
-        // Restituisci il buffer audio decodificato
-        return audioBuffer;
+      // Restituisci il buffer audio decodificato
+      return audioBuffer;
     } catch (error) {
-        console.error('Error while downloading the MP3 file:', error);
-        mp3LabelStatus.textContent = "track: " + 'error';
-        throw error; // Puoi scegliere di gestire l'errore in modo diverso se necessario
+      console.error('Error while downloading the MP3 file:', error);
+      mp3LabelStatus.textContent = "track error: " + error;
+      throw error; // Puoi scegliere di gestire l'errore in modo diverso se necessario
     }
   }
 
   //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   function playMP3(audioBuffer) {
     try {
-        mp3LabelStatus.textContent = "track: " + 'playing';
 
-        // Crea un buffer source node
-        const source = audioContext.createBufferSource();
 
-        // Collega il buffer al buffer source
-        source.buffer = audioBuffer;
+      // Crea un buffer source node
+      const source = audioContext.createBufferSource();
 
-        // Collega il buffer source al contesto audio
-        source.connect(audioContext.destination);
+      // Collega il buffer al buffer source
+      source.buffer = audioBuffer;
 
-        // Riproduci il suono
-        source.start();
+      // Collega il buffer source al contesto audio
+      source.connect(audioContext.destination);
 
-        // Aggiorna lo stato
-        mp3LabelStatus.textContent = "track: " + 'done';
+      // Riproduci il suono
+      source.start();
+
+
+      mp3LabelStatus.textContent = "track: " + 'playing';
+
     } catch (error) {
-        console.error('Error while playing the MP3 file:', error);
-        mp3LabelStatus.textContent = "track: " + 'error';
+      console.error('Error while playing the MP3 file:', error);
+      mp3LabelStatus.textContent = "track error: " + error;
     }
   }
-  
+
 });
