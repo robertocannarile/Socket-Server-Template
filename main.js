@@ -1,5 +1,5 @@
 const createStaticServer = require("./modules/staticServer");
-//const getMp3File = require('./modules/experienceDataProvider');
+const getMp3File = require('./modules/experienceDataProvider');
 const createWebSocketServer = require("./modules/webSocketServer");
 
 const http = require("http");
@@ -29,5 +29,5 @@ app.use(staticApp);
 
 // download MP3 module
 const mp3App = getMp3File();
-//app.use(mp3App); // Mount the MP3 route
+app.use(mp3App); // Mount the MP3 route
 
