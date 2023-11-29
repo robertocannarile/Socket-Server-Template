@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const MessageToPartecipantType = {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
     ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
-    PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+    PlayIndexAudioBuffer: "play_index_audio_buffer" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
   }
 
   // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // array dei buffer audio
   const audioBuffers = [];
   let audioContext;
+
+  let audioSource;
+  let currentAudioSource = null;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
@@ -185,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // configura id client
             configureClientId(receivedData.message_data);
-          } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
+          } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioBuffer) {
             
             
             console.log("indext to play: " + receivedData.message_data.track_index);
@@ -221,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clienIdLabel.textContent = "id: " + clientUniqueId;
   }
   
-  let audioSource;
+  
 
   async function allowAudioContextAndDownloadAudioBuffers() {
 
@@ -280,7 +283,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function playMP3(audioBuffers, index) {
     try {
 
-
+      if (currentAudioSource) {
+        currentAudioSource.stop();
+      }
       // Crea un buffer source node
       audioSource = audioContext.createBufferSource();
 
@@ -293,6 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Riproduci il suono
       audioSource.start();
 
+      currentAudioSource  = audioSource;
 
       mp3LabelStatus.textContent = "track: " + 'playing';
 

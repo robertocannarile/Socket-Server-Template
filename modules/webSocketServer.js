@@ -16,7 +16,7 @@ const MessageTarget = {
 const MessageToPartecipantType = {
   ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
   ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
-  PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+  PlayIndexAudioBuffer: "play_index_audio_buffer" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
 }
 
 // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
@@ -160,7 +160,7 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
   } else if (receivedData.server_message_target === MessageTarget.PartecipantClient) {
     // messaggio ricevuto dai client(partecipante o touchdesign)
 
-    if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
+    if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioBuffer) {
       if (readyClients.length > 0) {
         const firstClientWs = readyClients[0].ws;
 
@@ -168,7 +168,7 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
         
         serverMessageSender(
           MessageTarget.PartecipantClient,
-          MessageToPartecipantType.PlayIndexAudioSource,
+          MessageToPartecipantType.PlayIndexAudioBuffer,
           data,
           firstClientWs)
       }
