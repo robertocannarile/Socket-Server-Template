@@ -148,9 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Errore durante l\'analisi del JSON:', error);
       }
     }
-
-    // Aggiorna il contenuto della label
-    myLabel.textContent = 'Nuovo contenuto';
   }
 
   //////////////// CLIENT FUNCTION ////////////////////////
