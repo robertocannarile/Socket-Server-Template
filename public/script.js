@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // download delle tracce audio contenute nel json
       // per adesso sto usando un link statico ma i
       // link delle tracce devono arrivare dal messaggio json
-      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3');
+      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
       audioBuffer.push(audioBuffer);
 
       // play della traccia
