@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
       audioBuffer.push(audioBuffer);
 
       // play della traccia
-      playMP3(audioBuffer);
+      //playMP3(audioBuffer);
     } catch (error) {
         // Gestisci l'errore se necessario
     }
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   function playMP3(audioBuffer) {
     try {
         mp3LabelStatus.textContent = "track: " + 'playing';
