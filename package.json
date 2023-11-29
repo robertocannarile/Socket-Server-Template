@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "ws": "^8.2.2",
-    "uuid": "^8.3.2"
+    "node-fetch": "^3.3.2",
+    "uuid": "^8.3.2",
+    "ws": "^8.2.2"
   },
-
   "headers": {
     "/webs/style.css": {
       "Content-Type": "text/css"
