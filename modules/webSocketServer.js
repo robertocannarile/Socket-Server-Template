@@ -164,10 +164,11 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
 
     // broadcast del messaggio a tutti 
     broadcast(ws, stringifiedData, false);
+    console.log(stringifiedData);
   } else {
 
     // other message
-    console.log(stringifiedData);
+    console.log("messaggio ricevuto non supportato: " + stringifiedData);
   }
 
 }
