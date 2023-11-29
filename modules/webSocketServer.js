@@ -7,14 +7,14 @@ let wss;
 
 // indica a quali client è rivolto il messaggio (partecipanti esperienza o se è per TouchDesigner)
 const ServerMessageTarget = {
-  PartecipantClient: partecipant_client,
-  TouchDesignerClient: touch_tesigner_client
+  PartecipantClient: "partecipant_client",
+  TouchDesignerClient: "touch_tesigner_client"
 }
 
 // rappresenta il tipo di messaggio che può ottenere un Client Partecipante dell'esperienza
 const ServerMessagePartecipantType = {
-	ExperienceConfigurator: experience_configurator, // indica che il messaggio contiene dati per la configurazione dell'esperienza
-  ClientIdConfigurator: clientIdconfigurator, // indica che il messaggio contiene l'id che client dovrà assumere
+	ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
+  ClientIdConfigurator: "clientIdconfigurator", // indica che il messaggio contiene l'id che client dovrà assumere
 }
 
 // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
