@@ -189,6 +189,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
       audioBuffers.push(audioBuffer);
 
+      const audioBuffer2 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/NeverGonnaGiveYouUp.mp3');
+      audioBuffers.push(audioBuffer2);
+
 
       // Aggiorna lo stato notificando che tutti
       // i media dell'esperienza sono stati scaricati
