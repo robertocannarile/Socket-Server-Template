@@ -63,6 +63,8 @@ const createWebSocketServer = (server) => {
 
             // Aggiungi il client alla lista dei client pronti
             readyClients.push({ id: clientId, ws });
+            console.log(`Client ready list size: ${readyClients.length}`);
+
             // notifica client partecipante del suo id
             sendClientIdConfiguratorToClient(ws, clientId);
           } else {
@@ -85,6 +87,7 @@ const createWebSocketServer = (server) => {
     if (index !== -1) {
       readyClients.splice(index, 1);
       console.log(`Client ${clientId} removed from ready list`);
+      console.log(`Client ready list size: ${readyClients.length}`);
     }
 
       if (wss.clients.size === 0) {
