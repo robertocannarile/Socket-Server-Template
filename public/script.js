@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function configureExperience(data) {
     // dati ricevuti
     if (data.track) {
-      console.log(`Nome della traccia: ${receivedData.track}`);
+      console.log(`Nome della traccia: ${data.track}`);
     }
     if (data.artist) {
-      console.log(`Nome dell'artista: ${receivedData.artist}`);
+      console.log(`Nome dell'artista: ${data.artist}`);
     }
   }
   function configureClientId(data) {
