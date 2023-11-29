@@ -54,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //////////////// HTML OUTPUT EVENTS ////////////////////////
 
-  // Seleziona l'elemento con l'id "myLabel"
-  const myLabel = document.getElementById('labelIdVisualization');
+
+  const clienIdLabel = document.getElementById('labelIdVisualization');
+  const mp3LabelStatus = document.getElementById('mp3DownloadStatus');
 
 
 
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   //////////////// CLIENT FUNCTION ////////////////////////
-  function configureExperience(data) {
+  async function configureExperience(data) {
     // dati ricevuti
     if (data.track) {
       console.log(`Nome della traccia: ${data.track}`);
@@ -159,15 +160,50 @@ document.addEventListener('DOMContentLoaded', function () {
     if (data.artist) {
       console.log(`Nome dell'artista: ${data.artist}`);
     }
+
+    // Call the function to download the MP3
+    await downloadMP3();
   }
   function configureClientId(data) {
     // dati ricevuti
     clientUniqueId = data.clientId;
 
     // Aggiorna il contenuto della label
-    myLabel.textContent = clientUniqueId;
+    clienIdLabel.textContent = "id: " + clientUniqueId;
 
     // disabilita ready button
     debugReadyButton.disabled = true;
   }
+  
+
+
+  const mp3Url = 'https://www.stefanoromanelli.it/remoteAssets/sample.mp3';
+  // Funzione per scaricare il file MP3 e immagazzinarlo in una variabile
+  async function downloadMP3() {
+    try {
+      mp3LabelStatus.textContent = "track: " + 'downloading';
+      // Effettua una richiesta per ottenere il file MP3
+      const response = await fetch(mp3Url);
+
+      // Ottieni i dati audio come array di byte
+      const audioData = await response.arrayBuffer();
+
+      // Crea un contesto audio
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // Decodifica i dati audio
+      const audioSource = await audioContext.decodeAudioData(audioData);
+
+      // Immagazzina i dati audio nella variabile
+      const audioVariable = audioSource.getChannelData(0); // You can also use audioSource.getChannelData(1) for the right channel
+
+      console.log('MP3 file downloaded and stored in the variable:', audioVariable);
+      mp3LabelStatus.textContent = "track: " + 'done';
+    } catch (error) {
+      console.error('Error while downloading the MP3 file:', error);
+      mp3LabelStatus.textContent = "track: " + 'error';
+    }
+  }
+
+  
 });
