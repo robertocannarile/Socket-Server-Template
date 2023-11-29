@@ -211,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   function playMP3(audioBuffer) {
     try {
         mp3LabelStatus.textContent = "track: " + 'playing';
