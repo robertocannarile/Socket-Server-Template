@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let clientUniqueId = null;
 
   // array dei buffer audio
-  const audioBuffer = [];
+  const audioBuffers = [];
   let audioContext;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // per adesso sto usando un link statico ma i
       // link delle tracce devono arrivare dal messaggio json
       const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-      audioBuffer.push(audioBuffer);
+      audioBuffers.push(audioBuffer);
 
 
       // Aggiorna lo stato notificando che tutti
