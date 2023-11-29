@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
   //////////////// HTML INPUT EVENTS ////////////////////////
 
   let controlTD = document.querySelector('.controlTD');
