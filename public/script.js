@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
   let clientUniqueId = null;
 
+  // array dei buffer audio
+  const audioBuffer = [];
 
 
   //////////////// HTML INPUT EVENTS ////////////////////////
@@ -163,8 +165,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /// DEBUG ///
     try {
-      // download traccia audio
-      const audioBuffer = await downloadMP3();
+      // download delle tracce audio contenute nel json
+      // per adesso sto usando un link statico ma i
+      // link delle tracce devono arrivare dal messaggio json
+      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3');
+      audioBuffer.push(audioBuffer);
 
       // play della traccia
       playMP3(audioBuffer);
@@ -186,9 +191,9 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
 
-  const mp3Url = 'https://smart-perf-7d930c61dbd0.herokuapp.com/mp3';
-  // Funzione per scaricare il file MP3 e immagazzinarlo in una variabile
-  async function downloadMP3() {
+  
+  // Funzione scarica e restituisce il buffer MP3  
+  async function downloadMP3(mp3Url) {
     try {
         mp3LabelStatus.textContent = "track: " + 'downloading';
 
