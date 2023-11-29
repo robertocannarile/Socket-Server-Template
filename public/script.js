@@ -17,14 +17,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // array dei buffer audio
   const audioBuffer = [];
-
+  let audioContext;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
   let controlTD = document.querySelector('.controlTD');
   let controlTD2 = document.querySelector('.controlTD2');
-  // Seleziona il tuo bottone utilizzando una classe o un ID appropriato
-  let debugReadyButton = document.querySelector('.debugReadyButton');
+
+  let allowMediaContentButtonAndDownload = document.querySelector('.allowAudioSourceAndDownload');
+  
+  // debug input
+  //let debugReadyButton = document.querySelector('.debugReadyButton');
 
 
   //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
@@ -38,15 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
     sliderChanged();
   });
 
-  // Aggiungi un gestore di eventi al clic del bottone
+  
+  // debug ready
   debugReadyButton.addEventListener('click', function () {
-    // Esegui la logica desiderata quando il bottone viene cliccato
-    console.log('Button clicked');
 
-    // Puoi anche chiamare la funzione clientReady se necessario
-    clientReady();
+
+    
   });
 
+  allowMediaContentButtonAndDownload.addEventListener('click', function () {
+
+    allowAudioContextAndDownloadAudioBuffers();
+  });
 
 
 
@@ -153,33 +159,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   //////////////// CLIENT FUNCTION ////////////////////////
-  async function configureExperience(data) {
+  function configureExperience(data) {
     // dati ricevuti
     if (data.track) {
       console.log(`Nome della traccia: ${data.track}`);
     }
     if (data.artist) {
       console.log(`Nome dell'artista: ${data.artist}`);
-    }
-
-
-    /// DEBUG ///
-    try {
-      // download delle tracce audio contenute nel json
-      // per adesso sto usando un link statico ma i
-      // link delle tracce devono arrivare dal messaggio json
-      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-      audioBuffer.push(audioBuffer);
-
-
-      // Aggiorna lo stato notificando che tutti
-      // i media dell'esperienza sono stati scaricati
-
-      mp3LabelStatus.textContent = "track: " + 'done';
-      // play della traccia
-      //playMP3(audioBuffer);
-    } catch (error) {
-      // Gestisci l'errore se necessario
     }
 
   }
@@ -194,7 +180,32 @@ document.addEventListener('DOMContentLoaded', function () {
     debugReadyButton.disabled = true;
   }
 
+  async function allowAudioContextAndDownloadAudioBuffers() {
 
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    /// DEBUG ///
+    try {
+      // download delle tracce audio contenute nel json
+      // per adesso sto usando un link statico ma i
+      // link delle tracce devono arrivare dal messaggio json
+      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
+      audioBuffer.push(audioBuffer);
+
+
+      // Aggiorna lo stato notificando che tutti
+      // i media dell'esperienza sono stati scaricati
+
+      mp3LabelStatus.textContent = "track: " + 'done';
+
+
+      clientReady();
+      // play della traccia
+      //playMP3(audioBuffer);
+    } catch (error) {
+      // Gestisci l'errore se necessario
+    }
+  }
 
 
   // Funzione scarica e restituisce il buffer MP3  
@@ -220,7 +231,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  //const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  
+
+  
   function playMP3(audioBuffer) {
     try {
 
