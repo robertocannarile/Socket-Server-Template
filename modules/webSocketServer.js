@@ -61,12 +61,19 @@ const createWebSocketServer = (server) => {
             // Il client è pronto, esegui le azioni necessarie
             console.log(`Client ${clientId} is ready`);
 
-            // Aggiungi il client alla lista dei client pronti
-            readyClients.push({ id: clientId, ws });
-            console.log(`Client ready list size: ${readyClients.length}`);
+            // Verifica se il client è già presente nella lista
+            const isClientAlreadyReady = readyClients.some(client => client.id === clientId);
 
-            // notifica client partecipante del suo id
-            sendClientIdConfiguratorToClient(ws, clientId);
+            if (!isClientAlreadyReady) {
+              // Aggiungi il client alla lista dei client pronti
+              readyClients.push({ id: clientId, ws });
+              console.log(`Client ready list size: ${readyClients.length}`);
+
+              // notifica client partecipante del suo id
+              sendClientIdConfiguratorToClient(ws, clientId);
+            } else {
+                console.log(`Client ${clientId} is already in the ready list.`);
+            }
           } else {
             // Altri tipi di messaggi, gestiscili come desideri
             console.log('Messaggio non riconosciuto:', receivedData);
