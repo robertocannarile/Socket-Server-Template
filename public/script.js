@@ -1,16 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  // indica a quali client è rivolto il messaggio (partecipanti esperienza o se è per TouchDesigner)
-  const ServerMessageTarget = {
+  // indica a chi è rivolto il messaggio (partecipanti esperienza, se è per TouchDesigner o al server)
+  const MessageTarget = {
     PartecipantClient: "partecipant_client",
-    TouchDesignerClient: "touch_tesigner_client"
+    TouchDesignerClient: "touch_tesigner_client",
+    Server: "server"
   }
 
   // rappresenta il tipo di messaggio che può ottenere un Client Partecipante dell'esperienza
-  const ServerMessagePartecipantType = {
+  const MessageToPartecipantType = {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
     ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
     PlayIndexAudioSource: "play_index_audio_source" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+  }
+
+  // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
+  const MessageToTouchDesignerType = {
+    ChangedSlider: "changed_slider"
+  }
+  // rappresenta il tipo di messaggio che può ottenere il server TouchDesign
+  const MessageToServerType = {
+    ClientReady: "client_ready"
   }
 
   const ws = new WebSocket('wss://smart-perf-7d930c61dbd0.herokuapp.com:443');
@@ -56,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+  
+
+
 
 
   //////////////// HTML OUTPUT EVENTS ////////////////////////
@@ -71,11 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  //////////////// WEB SOCKET DATA SENDER ////////////////////////
-
-  function websocketSender(json) {
-    ws.send(json);
-  }
 
 
 
@@ -104,15 +112,48 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  //////////////// CLIENT SENDER FUNCTION ////////////////////////
+  //////////////// CLIENT DATA SENDER FUNCTION ////////////////////////
   function sliderChanged() {
-    let data = JSON.stringify({ 'slider1': controlTD.value, 'slider2': controlTD2.value });
-    websocketSender(data);
+
+    const data = {
+      'slider1': controlTD.value,
+      'slider2': controlTD2.value
+    }
+
+    clientMessageSender(
+      MessageTarget.TouchDesignerClient,
+      MessageToTouchDesignerType.ChangedSlider,
+      data
+    );
   }
-  function clientReady() {
-    const readyMessage = JSON.stringify({ type: 'ready' });
-    websocketSender(readyMessage);
+
+  // Send a notification to server of the ready status of the client
+  function sendReadyToServer() {
+  
+    const data = {
+      client_ready: true,
+    };
+    
+    clientMessageSender(
+      MessageTarget.Server,
+      MessageToServerType.ClientReady,
+      data
+    );
   }
+
+
+  function clientMessageSender(MessageTarget, MessageType, data) {
+
+    const clientMessage = {
+      server_message_target: MessageTarget,
+      message_type: MessageType,
+      message_data: data
+    };
+  
+    const clientMessageString = JSON.stringify(clientMessage);
+    ws.send(clientMessageString);
+  }
+  
 
 
   //////////////// HANDLE SERVER MESSAGES ////////////////////////
@@ -133,19 +174,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         // verifica se il contenuto del messaggio è di interesse per il client partecipante
-        if (receivedData.server_message_target == ServerMessageTarget.PartecipantClient) {
+        if (receivedData.server_message_target == MessageTarget.PartecipantClient) {
 
           // messaggio di tipo configurazione dell'esperienza
-          if (receivedData.message_type == ServerMessagePartecipantType.ExperienceConfigurator) {
+          if (receivedData.message_type == MessageToPartecipantType.ExperienceConfigurator) {
 
             // configura esperienza 
             configureExperience(receivedData.message_data);
 
-          } else if (receivedData.message_type == ServerMessagePartecipantType.ClientIdConfigurator) {
+          } else if (receivedData.message_type == MessageToPartecipantType.ClientIdConfigurator) {
 
             // configura id client
             configureClientId(receivedData.message_data);
-          } else if (receivedData.message_type == ServerMessagePartecipantType.PlayIndexAudioSource) {
+          } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
             
             console.log("indext to play: " + receivedData.message_data);
           }
@@ -200,13 +241,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Aggiorna lo stato notificando che tutti
       // i media dell'esperienza sono stati scaricati
-
       mp3LabelStatus.textContent = "track: " + 'done, ready to play mp3';
+      sendReadyToServer();
 
-
-      clientReady();
-      // play della traccia
-      //playMP3(audioBuffer);
     } catch (error) {
       console.error('Error while downloading and decoding the MP3 file:', error);
       mp3LabelStatus.textContent = "track error: " + error;
