@@ -10,13 +10,8 @@ const getMp3File = () => {
             const fetch = (await import('node-fetch')).default;
 
             const response = await fetch('https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-            const buffer = await response.arrayBuffer();
+            const buffer = await response.buffer();
             res.set('Content-Type', 'audio/mpeg');
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-            res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-            next();
-            
             res.send(buffer);
         } catch (error) {
             console.error(error);
