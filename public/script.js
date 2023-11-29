@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
           } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioSource) {
             
             
-            console.log("indext to play: " + receivedData.message_data.track_index);
+            //console.log("indext to play: " + receivedData.message_data.track_index);
             playMP3(receivedData.message_data.track_index)
           }
 
