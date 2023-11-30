@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const MessageToPartecipantType = {
     ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
     ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
-    PlayIndexAudioBuffer: "play_index_audio_buffer" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+    PlayIndexAudioBuffer: "play_index_audio_buffer", // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+    PlayIndexGlobalAudioBuffer: "play_index_global_audio_buffer" // il messaggio indica che il client(tutti essendo global) partecipante deve riprodurre la traccia globale di un certo index
   }
 
   // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
@@ -28,10 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // array dei buffer audio
   const audioBuffers = [];
+  const globalAudioBuffers = [];
+
   let audioContext;
 
   let audioSource;
+  let globalAudioSource;
   let currentAudioSource = null;
+  let currentGlobalAudioSource = null;
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
@@ -180,19 +185,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // messaggio di tipo configurazione dell'esperienza
           if (receivedData.message_type == MessageToPartecipantType.ExperienceConfigurator) {
-
             // configura esperienza 
             configureExperience(receivedData.message_data);
 
           } else if (receivedData.message_type == MessageToPartecipantType.ClientIdConfigurator) {
-
             // configura id client
             configureClientId(receivedData.message_data);
+
           } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioBuffer) {
-            
-            
-            console.log("indext to play: " + receivedData.message_data.track_index);
-            playMP3(audioBuffers, receivedData.message_data.track_index)
+            console.log("indext track to play: " + receivedData.message_data.track_index);
+            playIndexTrackMP3(audioBuffers, receivedData.message_data.track_index)
+
+          } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexGlobalAudioBuffer) {
+            console.log("global indext track to play: " + receivedData.message_data.track_index);
+            playGlobalIndexTrackMP3(globalAudioBuffers, receivedData.message_data.global_track_index)
+
           }
 
         }
@@ -225,21 +232,30 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   
   
-
+  // questo metodo permette di dare il consenso all'utente di scaricare le
+  // tracce audio per dell'intera esperienza e di preparare gli audio source
+  // su cui riprodurre le tracce(global track o playIndexTrackMP3)
+  // questa procedura permette l'auto riproduzione delle 
+  // tracce(rispetto ai messaggi ricevuti dal server) senza
+  // che il browser le blocchi
   async function allowAudioContextAndDownloadAudioBuffers() {
 
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     /// DEBUG ///
     try {
-      // download delle tracce audio contenute nel json
-      // per adesso sto usando un link statico ma i
+      // download di tutte tracce audio contenute nel json
       // link delle tracce devono arrivare dal messaggio json
-      const audioBuffer = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-      audioBuffers.push(audioBuffer);
+      const audioBuffer1 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
+      audioBuffers.push(audioBuffer1);
 
       const audioBuffer2 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/NeverGonnaGiveYouUp.mp3');
       audioBuffers.push(audioBuffer2);
+
+
+      // queste sono le tracce globali(quelle che vengono riprodotte da tutti i dispositivi)
+      const globalaudioBuffer1 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/NeverGonnaGiveYouUp.mp3');
+      globalAudioBuffers.push(globalaudioBuffer1);
 
 
       // Aggiorna lo stato notificando che tutti
@@ -280,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
   // play an audio buffer from audioBuffers by index
-  function playMP3(audioBuffers, index) {
+  function playIndexTrackMP3(audioBuffers, index) {
     try {
 
       if (currentAudioSource) {
@@ -299,6 +315,35 @@ document.addEventListener('DOMContentLoaded', function () {
       audioSource.start();
 
       currentAudioSource  = audioSource;
+
+      mp3LabelStatus.textContent = "track: " + 'playing';
+
+    } catch (error) {
+      console.error('Error while playing the MP3 file:', error);
+      mp3LabelStatus.textContent = "track error: " + error;
+    }
+  }
+
+  // play an(global) audio buffer from audioBuffers by index
+  function playGlobalIndexTrackMP3(globalAudioBuffers, index) {
+    try {
+
+      if (currentAudioSource) {
+        currentGlobalAudioSource.stop();
+      }
+      // Crea un buffer source node
+      globalAudioSource = audioContext.createBufferSource();
+
+      // Collega il buffer al buffer source
+      globalAudioSource.buffer = audioBuffers[index];
+
+      // Collega il buffer source al contesto audio
+      globalAudioSource.connect(audioContext.destination);
+
+      // Riproduci il suono
+      globalAudioSource.start();
+
+      currentGlobalAudioSource  = globalAudioSource;
 
       mp3LabelStatus.textContent = "track: " + 'playing';
 

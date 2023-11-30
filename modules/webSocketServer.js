@@ -16,7 +16,8 @@ const MessageTarget = {
 const MessageToPartecipantType = {
   ExperienceConfigurator: "experience_configurator", // indica che il messaggio contiene dati per la configurazione dell'esperienza
   ClientIdConfigurator: "client_id_configurator", // indica che il messaggio contiene l'id che client dovrà assumere
-  PlayIndexAudioBuffer: "play_index_audio_buffer" // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+  PlayIndexAudioBuffer: "play_index_audio_buffer", // il messaggio indica che il client partecipante deve riprodurre la traccia di un certo index
+  PlayIndexGlobalAudioBuffer: "play_index_global_audio_buffer" // il messaggio indica che il client(tutti essendo global) partecipante deve riprodurre la traccia globale di un certo index
 }
 
 // rappresenta il tipo di messaggio che può ottenere il Client(unico) TouchDesign
@@ -160,17 +161,38 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
   } else if (receivedData.server_message_target === MessageTarget.PartecipantClient) {
     // messaggio ricevuto dai client(partecipante o touchdesign)
 
+
+    // il tipo di messaggio chiede di fare play di una traccia audio su un dispositivo nel readyClients specifico
     if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioBuffer) {
       if (readyClients.length > 0) {
-        const firstClientWs = readyClients[0].ws;
+        const firstClientWs = readyClients[0].ws; // dispositivo specifico
 
         const data = receivedData.message_data;
         
         serverMessageSender(
-          MessageTarget.PartecipantClient,
-          MessageToPartecipantType.PlayIndexAudioBuffer,
+          receivedData.server_message_target,
+          receivedData.message_type,
           data,
           firstClientWs)
+      }
+
+      // qui il tipo di messaggio richiede di fare play su ogni dispositivo in readyClients
+    } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexGlobalAudioBuffer) {
+      
+      if (readyClients.length > 0) {
+
+        const data = receivedData.message_data;
+
+        readyClients.forEach((client) => {
+          const clientWs = client.ws;
+          
+          serverMessageSender(
+            receivedData.server_message_target,
+            receivedData.message_type,
+            data,
+            clientWs
+          );
+        });
       }
     }
     
