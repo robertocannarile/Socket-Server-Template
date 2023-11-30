@@ -194,11 +194,12 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
           );
         });
       }
+    } else {
+      broadcast(ws, stringifiedData, false);
     }
     
     console.log(stringifiedData);
-  } else if (receivedData.server_message_target === MessageTarget.PartecipantClient) { 
-
+  } else if (receivedData.server_message_target === MessageTarget.TouchDesignerClient) {
     broadcast(ws, stringifiedData, false);
   } else {
     
