@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           } else if (receivedData.message_type == MessageToPartecipantType.PlayIndexGlobalAudioBuffer) {
             console.log("global indext track to play: " + receivedData.message_data.track_index);
-            playGlobalIndexTrackMP3(globalAudioBuffers, receivedData.message_data.global_track_index)
+            playGlobalIndexTrackMP3(globalAudioBuffers, receivedData.message_data.track_index)
 
           }
 
