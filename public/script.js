@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // tracce(rispetto ai messaggi ricevuti dal server) senza
   // che il browser le blocchi
   async function allowAudioContextAndDownloadAudioBuffers() {
-
+    allowMediaContentButtonAndDownload.disabled = true;
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     /// DEBUG ///
