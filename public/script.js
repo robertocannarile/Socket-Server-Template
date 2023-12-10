@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentAudioSource = null;
   let currentGlobalAudioSource = null;
 
+  // configurator dell'esperienza(contiene i le track audio che il dispositivo deve scaricare)
+  let randomic_tracks_url = [];
+  let global_tracks_url = [];
+
   //////////////// HTML INPUT EVENTS ////////////////////////
 
   let controlTD = document.querySelector('.controlTD');
@@ -69,8 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     allowAudioContextAndDownloadAudioBuffers();
   });
-
-
 
 
 
@@ -214,12 +216,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //////////////// CLIENT FUNCTION ////////////////////////
   function configureExperience(data) {
+
     // dati ricevuti
-    if (data.track) {
-      console.log(`Nome della traccia: ${data.track}`);
+    if (data.data.track.message_data.randomic) {
+      randomic_tracks_url = data.track.message_data.randomic;
+      console.log(`randomic track: ${randomic_tracks_url}`);
     }
-    if (data.artist) {
-      console.log(`Nome dell'artista: ${data.artist}`);
+    if (data.track.message_data.global) {
+      global_tracks_url = data.track.message_data.global;
+      console.log(`global track: ${global_tracks_url}`);
     }
 
   }
