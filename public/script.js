@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
-
+  
   //////////////// CLIENT FUNCTION ////////////////////////
   function configureExperience(data) {
 
@@ -249,18 +249,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /// DEBUG ///
     try {
-      // download di tutte tracce audio contenute nel json
-      // link delle tracce devono arrivare dal messaggio json
-      const audioBuffer1 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
-      audioBuffers.push(audioBuffer1);
+      // vecchio modo per scaricare le tracce da server esterni usando server node per ottenere il file da un altro server e poi restituirlo
+      // const audioBuffer1 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/sample.mp3');
 
-      const audioBuffer2 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/NeverGonnaGiveYouUp.mp3');
-      audioBuffers.push(audioBuffer2);
 
+      // download di tutte tracce audio contenute dalla configurazione
+
+      
+      // download tracce randomic
+      randomic_tracks_url.forEach(async (track_url) => {
+        const audioBuffer = await downloadMP3(track_url);
+        audioBuffers.push(audioBuffer);
+      });
 
       // queste sono le tracce globali(quelle che vengono riprodotte da tutti i dispositivi)
-      const globalaudioBuffer1 = await downloadMP3('https://smart-perf-7d930c61dbd0.herokuapp.com/mp3?url=https://www.stefanoromanelli.it/remoteAssets/NeverGonnaGiveYouUp.mp3');
-      globalAudioBuffers.push(globalaudioBuffer1);
+      randomic_tracks_url.forEach(async (track_url) => {
+        const globalaudioBuffer = await downloadMP3(track_url);
+        globalAudioBuffers.push(globalaudioBuffer);
+      });
+      
 
 
       // Aggiorna lo stato notificando che tutti
