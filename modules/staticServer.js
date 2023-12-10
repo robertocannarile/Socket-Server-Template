@@ -21,11 +21,23 @@ const createStaticServer = (publicFolder = "public") => {
   }));
 
   // Aggiungi una route per gestire i download
-  app.get('/download/file', (req, res) => {
-    const filename = req.query.filename;
-    const filePath = path.join(publicPath, 'tracks', 'randomic_tracks', filename);
+  app.get('/get-download-links', (req, res) => {
+    // Leggi la directory
+    fs.readdir(randomicTracksFolderPath, (err, files) => {
+      if (err) {
+        console.error('Errore nella lettura della directory di randomic_tracks:', err);
+        res.status(500).json({ error: 'Errore nella lettura della directory di randomic_tracks' });
+        return;
+      }
 
-    res.download(filePath, filename);
+      // Genera una lista di link per ciascun file
+      const downloadLinks = files.map((filename) => {
+        return `${serverDomain}/download/file?filename=${filename}`;
+      });
+
+      // Restituisci l'array di link
+      res.json({ links: downloadLinks });
+    });
   });
 
   return app;
