@@ -30,7 +30,7 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
 
 
 
-    setRandomicClientTracksConfiguratorUrl(tracksUrl)
+    setRandomicClientTracksConfiguratorUrl(tracksUrl);
 });
 
 // Leggi la directory delle global traks
@@ -50,6 +50,7 @@ fs.readdir(gloablTracksFolderPath, (err, files) => {
         console.log('Link per scaricare il file:', fileLink);
     });
 
+    setGlobalClientTracksConfiguratorUrl(tracksUrl);
 });
 
 
