@@ -217,8 +217,7 @@ function sendInitialData(ws) {
   // Costruzione del json con i dati per configurare
   // l'esperienza sui client partecipanti
   const data = {
-    track: "Nome della traccia",
-    artist: "Nome dell'artista",
+    experienceConfiguration: clientTracksConfiguratorUrl,
   };
 
   // Invia il JSON della configurazione dell'esperienza
@@ -248,9 +247,8 @@ const setGlobalClientTracksConfiguratorUrl = (configuration) => {
 }
 
 function sendClientIdConfiguratorToClient(ws, id) {
-
   const data = {
-    experienceConfiguration: clientTracksConfiguratorUrl,
+    clientId: id,
   };
   serverMessageSender(
     MessageTarget.PartecipantClient,

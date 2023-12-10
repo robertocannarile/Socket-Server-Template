@@ -1,6 +1,6 @@
 //const setRandomicClientTracksConfiguratorUrl = require("./webSocketServer");
 //const setGlobalClientTracksConfiguratorUrl = require("./webSocketServer");
-const { createWebSocketServer, setRandomicClientTracksConfiguratorUrl, setGlobalClientTracksConfiguratorUrl } = require("./webSocketServer");
+const { setRandomicClientTracksConfiguratorUrl, setGlobalClientTracksConfiguratorUrl } = require("./webSocketServer");
 
 const express = require("express");
 
@@ -27,7 +27,7 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
         // Crea il link per il file
         const fileLink = `${serverDomain}/download/${encodeURIComponent(file)}`;
         tracksUrl.push(fileLink);
-        console.log('Link per scaricare il file:', fileLink);
+        //console.log('Link per scaricare il file:', fileLink);
     });
 
 
@@ -49,7 +49,7 @@ fs.readdir(gloablTracksFolderPath, (err, files) => {
         // Crea il link per il file
         const fileLink = `${serverDomain}/download/${encodeURIComponent(file)}`;
         tracksUrl.push(fileLink);
-        console.log('Link per scaricare il file:', fileLink);
+        //console.log('Link per scaricare il file:', fileLink);
     });
 
     setGlobalClientTracksConfiguratorUrl(tracksUrl);

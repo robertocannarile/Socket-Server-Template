@@ -1,6 +1,6 @@
 const createStaticServer = require("./modules/staticServer");
 const getMp3File = require('./modules/experienceDataProvider');
-const { createWebSocketServer, setRandomicClientTracksConfiguratorUrl, setGlobalClientTracksConfiguratorUrl } = require("./modules/webSocketServer");
+const { createWebSocketServer } = require("./modules/webSocketServer");
 
 const http = require("http");
 const express = require("express");
