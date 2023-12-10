@@ -4,8 +4,7 @@ const express = require("express");
 const fs = require('fs');
 const path = require('path');
 
-const publicFolderPath = path.join(__dirname, 'public');
-const tracksFolderPath = path.join(publicFolderPath, 'tracks');
+const tracksFolderPath = path.join(__dirname, 'tracks');
 const randomicTracksFolderPath = path.join(tracksFolderPath, 'randomic_tracks');
 
 
