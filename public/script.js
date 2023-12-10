@@ -219,11 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // dati ricevuti
     if (data.message_data.randomic) {
-      randomic_tracks_url = data.message_data.randomic;
+      randomic_tracks_url = data.message_data.experienceConfiguration.randomic;
       console.log(`randomic track: ${randomic_tracks_url}`);
     }
     if (data.message_data.global) {
-      global_tracks_url = data.message_data.randomic;
+      global_tracks_url = data.message_data.experienceConfiguration.global;
       console.log(`global track: ${global_tracks_url}`);
     }
 
