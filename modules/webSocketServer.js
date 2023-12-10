@@ -241,10 +241,10 @@ let clientTracksConfiguratorUrl = {
 
 
 const setRandomicClientTracksConfiguratorUrl = (configuration) => {
-  clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['randomic'] = configuration;
+  clientTracksConfiguratorUrl['randomic'] = configuration;
 }
 const setGlobalClientTracksConfiguratorUrl = (configuration) => {
-  clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['global'] = configuration;
+  clientTracksConfiguratorUrl['global'] = configuration;
 }
 
 function sendClientIdConfiguratorToClient(ws, id) {
