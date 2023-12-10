@@ -286,4 +286,8 @@ function serverMessageSender(MessageTarget, MessageType, data, ws) {
   ws.send(serverMessageString);
 }
 
-module.exports = createWebSocketServer;
+module.exports = {
+  createWebSocketServer,
+  setRandomicClientTracksConfiguratorUrl,
+  setGlobalClientTracksConfiguratorUrl
+};
