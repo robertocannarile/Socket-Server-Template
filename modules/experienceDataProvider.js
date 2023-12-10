@@ -6,7 +6,7 @@ const path = require('path');
 
 const tracksFolderPath = path.join(__dirname, 'tracks');
 const randomicTracksFolderPath = path.join(tracksFolderPath, 'randomic_tracks');
-
+const serverDomain = 'https://smart-perf-7d930c61dbd0.herokuapp.com';
 
 // Leggi la directory
 fs.readdir(randomicTracksFolderPath, (err, files) => {
@@ -17,7 +17,7 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
 
     // Genera e stampa i link per ciascun file
     files.forEach((filename) => {
-        const downloadLink = `/download/file?filename=${filename}`;
+        const downloadLink = `${serverDomain}/download/file?filename=${filename}`;
         console.log(`Link per il download di ${filename}: ${downloadLink}`);
     });
 });
