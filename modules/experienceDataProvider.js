@@ -1,6 +1,26 @@
 // modules/experienceDataProvider.js
 const express = require("express");
 
+const fs = require('fs');
+const path = require('path');
+
+const publicFolderPath = path.join(__dirname, 'public');
+const tracksFolderPath = path.join(publicFolderPath, 'tracks');
+const randomicTracksFolderPath = path.join(tracksFolderPath, 'randomic_tracks');
+
+
+// Leggi la directory
+fs.readdir(randomicTracksFolderPath, (err, files) => {
+    if (err) {
+        console.error('Errore nella lettura della directory di randomic_tracks:', err);
+        return;
+    }
+
+    // Stampare l'elenco dei file nella sottocartella "randomic_tracks"
+    console.log('File nella cartella "randomic_tracks":', files);
+});
+
+
 const getMp3File = () => {
     const app = express();
 
@@ -26,5 +46,8 @@ const getMp3File = () => {
 
     return app;
 };
+
+
+
 
 module.exports = getMp3File;
