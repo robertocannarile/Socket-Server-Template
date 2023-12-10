@@ -238,12 +238,14 @@ let clientTracksConfiguratorUrl = {
   'randomic': [],
   'global': []
 };
-exports.setRandomicClientTracksConfiguratorUrl = function(configuration) {
+
+
+const setRandomicClientTracksConfiguratorUrl = (configuration) => {
   clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['randomic'] = configuration;
-};
-exports.setGlobalClientTracksConfiguratorUrl = function(configuration) {
+}
+const setGlobalClientTracksConfiguratorUrl = (configuration) => {
   clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['global'] = configuration;
-};
+}
 
 function sendClientIdConfiguratorToClient(ws, id) {
 
@@ -284,4 +286,7 @@ function serverMessageSender(MessageTarget, MessageType, data, ws) {
   ws.send(serverMessageString);
 }
 
+
+module.exports = setRandomicClientTracksConfiguratorUrl;
+module.exports = setGlobalClientTracksConfiguratorUrl;
 module.exports = createWebSocketServer;

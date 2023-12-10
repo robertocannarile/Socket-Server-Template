@@ -1,4 +1,5 @@
-const { setRandomicClientTracksConfiguratorUrl, setGlobalClientTracksConfiguratorUrl } = require("./webSocketServer");
+const setRandomicClientTracksConfiguratorUrl = require("./webSocketServer");
+const setGlobalClientTracksConfiguratorUrl = require("./webSocketServer");
 
 const express = require("express");
 
