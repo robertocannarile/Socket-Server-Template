@@ -234,10 +234,21 @@ function sendInitialData(ws) {
 /**
  * Sends the json with client id to the client 
  */
+let clientTracksConfiguratorUrl = {
+  'randomic': [],
+  'global': []
+};
+exports.setRandomicClientTracksConfiguratorUrl = function(configuration) {
+  clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['randomic'] = configuration;
+};
+exports.setGlobalClientTracksConfiguratorUrl = function(configuration) {
+  clientTracksConfiguratorUrl = clientTracksConfiguratorUrl['global'] = configuration;
+};
+
 function sendClientIdConfiguratorToClient(ws, id) {
 
   const data = {
-    clientId: id,
+    experienceConfiguration: clientTracksConfiguratorUrl,
   };
   serverMessageSender(
     MessageTarget.PartecipantClient,
