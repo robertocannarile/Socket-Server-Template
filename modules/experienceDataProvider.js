@@ -15,8 +15,11 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
         return;
     }
 
-    // Stampare l'elenco dei file nella sottocartella "randomic_tracks"
-    console.log('File nella cartella "randomic_tracks":', files);
+    // Genera e stampa i link per ciascun file
+    files.forEach((filename) => {
+        const downloadLink = `${req.protocol}://${req.get('host')}/download/file?filename=${filename}`;
+        console.log(`Link per il download di ${filename}: ${downloadLink}`);
+    });
 });
 
 
