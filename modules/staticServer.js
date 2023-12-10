@@ -2,6 +2,10 @@
 const express = require("express");
 const path = require("path");
 
+
+const tracksFolderPath = path.join(__dirname, 'tracks');
+const randomicTracksFolderPath = path.join(tracksFolderPath, 'randomic_tracks');
+
 const createStaticServer = (publicFolder = "public") => {
   const app = express();
 
@@ -21,23 +25,12 @@ const createStaticServer = (publicFolder = "public") => {
   }));
 
   // Aggiungi una route per gestire i download
-  app.get('/get-download-links', (req, res) => {
-    // Leggi la directory
-    fs.readdir(randomicTracksFolderPath, (err, files) => {
-      if (err) {
-        console.error('Errore nella lettura della directory di randomic_tracks:', err);
-        res.status(500).json({ error: 'Errore nella lettura della directory di randomic_tracks' });
-        return;
-      }
+  app.get('/download/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(randomicTracksFolderPath, filename);
 
-      // Genera una lista di link per ciascun file
-      const downloadLinks = files.map((filename) => {
-        return `${serverDomain}/download/file?filename=${filename}`;
-      });
-
-      // Restituisci l'array di link
-      res.json({ links: downloadLinks });
-    });
+    // Invia il file come risposta alla richiesta
+    res.sendFile(filePath);
   });
 
   return app;
