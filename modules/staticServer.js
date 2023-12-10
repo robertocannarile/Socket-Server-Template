@@ -20,6 +20,14 @@ const createStaticServer = (publicFolder = "public") => {
     },
   }));
 
+  // Aggiungi una route per gestire i download
+  app.get('/download/file', (req, res) => {
+    const filename = req.query.filename;
+    const filePath = path.join(publicPath, 'tracks', 'randomic_tracks', filename);
+
+    res.download(filePath, filename);
+  });
+
   return app;
 };
 
