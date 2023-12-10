@@ -218,11 +218,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function configureExperience(data) {
 
     // dati ricevuti
-    if (data.message_data.randomic) {
+    if (data.message_data.experienceConfiguration.randomic) {
       randomic_tracks_url = data.message_data.experienceConfiguration.randomic;
       console.log(`randomic track: ${randomic_tracks_url}`);
     }
-    if (data.message_data.global) {
+    if (data.message_data.experienceConfiguration.global) {
       global_tracks_url = data.message_data.experienceConfiguration.global;
       console.log(`global track: ${global_tracks_url}`);
     }
