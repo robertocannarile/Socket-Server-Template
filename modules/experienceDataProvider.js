@@ -17,7 +17,7 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
 
     // Genera e stampa i link per ciascun file
     files.forEach((filename) => {
-        const downloadLink = `${req.protocol}://${req.get('host')}/download/file?filename=${filename}`;
+        const downloadLink = `/download/file?filename=${filename}`;
         console.log(`Link per il download di ${filename}: ${downloadLink}`);
     });
 });
