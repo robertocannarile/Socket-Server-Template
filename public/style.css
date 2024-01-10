@@ -1,8 +1,10 @@
 body{
     background: #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    margin: 3%;
+    /* display: flex;
+    flex-direction: column; */
+    margin: 0px;
+    overflow: hidden;
+
 }
 .controlTD{
     border-radius: 50px;
@@ -23,13 +25,13 @@ body{
 
 input[type="range"] {
     /* To remove default styles appplied by webkit browsers */
-    -webkit-appearance: none; 
+    -webkit-appearance: none;
 
     width: 25em;
     background: transparent;
     position: relative;
     margin: 20px;
-}   
+}
 
 input[type="range"]:focus {
     /* To remove default (mostly blue) outline appplied by browsers on :focus */
@@ -49,7 +51,7 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 100%;
 
     /* The inset shadow gives depth and makes the thumb look 3 dimensional and the other one shows a subtle effect of the shadow it creates because of the light source coming from the top left of the page */
-    box-shadow: 
+    box-shadow:
                 inset .8em .8em 5px -8px rgba(255, 255, 255, .4),
                 inset -.4em -.4em 10px -3px rgba(0,0,0,.2),
                 0.7em 0.5em 7px -0.5em rgba(0,0,0,.4);;
@@ -64,7 +66,7 @@ input[type=range]::-moz-range-thumb {
     margin: .5em 0;
     background: #b3b3b3;
     border-radius: 100%;
-    box-shadow: 
+    box-shadow:
                 inset .8em .8em 5px -8px rgba(255, 255, 255, .4),
                 inset -.4em -.4em 10px -3px rgba(250, 250, 250, 0.2),
                 0.7em 0.5em 7px -0.5em rgba(0,0,0,.4);
@@ -82,8 +84,8 @@ input[type="range"]::-webkit-slider-runnable-track {
     padding: 0 1em;
     border-radius: 2em;
 
-    /* These shadow are what create the skeumorphic indent on the track. The first one is dark to show places in the indent that light don't reach and the second one shows places where light meets thereby creating the illusion of depth */ 
-    box-shadow: 
+    /* These shadow are what create the skeumorphic indent on the track. The first one is dark to show places in the indent that light don't reach and the second one shows places where light meets thereby creating the illusion of depth */
+    box-shadow:
                inset 3px 3px 6px #bebebe,
                 inset -3px -3px 6px #ffffff;
 }
@@ -94,7 +96,7 @@ input[type=range]::-moz-range-track {
     height: 4em;
     padding: 0 1em;
     border-radius: 2em;
-    box-shadow: 
+    box-shadow:
     inset 3px 3px 6px #bebebe,
     inset -3px -3px 6px #ffffff;
 }
@@ -127,7 +129,7 @@ input[type="range"]::before {
     font-weight: bold;
     font-family: 'Tangerine', cursive;
 
-    text-shadow: var(--brShadow), 
+    text-shadow: var(--brShadow),
                  var(--tlShadow);
     position: relative;
 }
@@ -140,9 +142,86 @@ input[type="range"]::before {
 
     font-size: 150px;
     color: #e0e0e0;
-    text-shadow: 
+    text-shadow:
     -8px -8px 12px rgba(255,255,255,0.4),
     8px 8px 12px rgba(0,0,0,0.2);
     caret-color:#0c0c0c;
     outline: none;
  }
+
+ .button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+    border-radius: 30px;
+    border: 1px solid #8F9092;
+    transition: all 0.2s ease;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #606060;
+    text-shadow: 0 1px #fff;
+    z-index: 2;
+
+
+}
+
+
+  button:hover {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+  }
+
+  button:active {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+
+  button:focus {
+    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+  }
+
+  video{
+    position: absolute;
+    z-index: -1;
+
+    object-fit: cover;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+
+    margin:0;
+  }
+
+  .label-cont {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    z-index: 4;
+}
+
+label {
+    text-align: center;
+    padding: 10px;
+}
+  .background-button{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+
+
+  }

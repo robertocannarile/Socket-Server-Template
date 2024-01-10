@@ -71,7 +71,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   allowMediaContentButtonAndDownload.addEventListener('click', function () {
 
+
+                    // Aspetta 5 secondi prima di nascondere il bottone e il background
+                    setTimeout(function() {
+                      document.querySelector('.button-container').style.display = 'none';
+                      document.querySelector('.background-button').style.display = 'none';
+                  }, 5000); // 5000 millisecondi = 5 secondi
+             
+
     allowAudioContextAndDownloadAudioBuffers();
+
+
+
+    
   });
 
 
