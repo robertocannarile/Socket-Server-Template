@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   //////////////// HTML INPUT EVENTS ////////////////////////
 
-  let controlTD = document.querySelector('.controlTD');
-  let controlTD2 = document.querySelector('.controlTD2');
+  // let controlTD = document.querySelector('.controlTD');
+  // let controlTD2 = document.querySelector('.controlTD2');
 
   let allowMediaContentButtonAndDownload = document.querySelector('.allowAudioSourceAndDownload');
   
@@ -53,16 +53,16 @@ document.addEventListener('DOMContentLoaded', function () {
   //let debugReadyButton = document.querySelector('.debugReadyButton');
 
 
-  //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
-  controlTD.addEventListener('input', (event) => {
-    console.log(controlTD.value);
-    sliderChanged();
-  });
-  //Slider 2, Ogni volta che cambio un valore allo slider, invia la modifica
-  controlTD2.addEventListener('input', (event) => {
-    console.log(controlTD2.value);
-    sliderChanged();
-  });
+  // //Slider 1, Ogni volta che cambio un valore allo slider, invia la modifica
+  // controlTD.addEventListener('input', (event) => {
+  //   console.log(controlTD.value);
+  //   sliderChanged();
+  // });
+  // //Slider 2, Ogni volta che cambio un valore allo slider, invia la modifica
+  // controlTD2.addEventListener('input', (event) => {
+  //   console.log(controlTD2.value);
+  //   sliderChanged();
+  // });
 
   
   // debug ready
