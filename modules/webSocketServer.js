@@ -165,7 +165,10 @@ function handleReceivedServerMessage(stringifiedData, clientId, ws) {
     // il tipo di messaggio chiede di fare play di una traccia audio su un dispositivo nel readyClients specifico
     if (receivedData.message_type == MessageToPartecipantType.PlayIndexAudioBuffer) {
       if (readyClients.length > 0) {
-        const firstClientWs = readyClients[0].ws; // dispositivo specifico
+
+        // ottieni l'index di un client casuale
+        const randomClientIndex = Math.floor(Math.random() * readyClients.length);
+        const firstClientWs = readyClients[randomClientIndex].ws; // dispositivo specifico
 
         const data = receivedData.message_data;
         
