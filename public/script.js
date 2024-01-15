@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
                       document.querySelector('.button-container').style.display = 'none';
                       document.querySelector('.background-button').style.display = 'none';
                   }, 5000); // 5000 millisecondi = 5 secondi
+
+                  document.querySelector('video').play();
              
 
     allowAudioContextAndDownloadAudioBuffers();
