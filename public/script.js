@@ -294,8 +294,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // queste sono le tracce globali(quelle che vengono riprodotte da tutti i dispositivi)
       randomic_tracks_url.forEach(async (track_url) => {
+
+        const matchResult = track_url.match(/\/(\d+)\.mp3$/);
+        let trackIndex = -1;
+
+        if (matchResult) {
+          trackIndex = parseInt(matchResult[1], 10);
+          console.log(trackIndex); // Stampa: 0 (come numero intero)
+        } else {
+          console.log("Nessuna corrispondenza trovata.");
+        }
+
         const globalaudioBuffer = await downloadMP3(track_url);
-        globalAudioBuffers.push(globalaudioBuffer);
+
+        globalAudioBuffers[trackIndex] = globalaudioBuffer;
       });
       
 
