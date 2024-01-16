@@ -277,8 +277,8 @@ document.addEventListener('DOMContentLoaded', function () {
       randomic_tracks_url.forEach(async (track_url) => {
         
 
-        const matchResult = url.match(/\/(\d+)\.mp3$/);
-        
+        const matchResult = track_url.match(/\/(\d+)\.mp3$/);
+
         if (matchResult) {
           const trackIndex = parseInt(matchResult[1], 10);
           console.log(trackIndex); // Stampa: 0 (come numero intero)
