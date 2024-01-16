@@ -271,6 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       
       // download tracce randomic
+      console.log("TRACCE DA SCARICARE " + randomic_tracks_url);
       randomic_tracks_url.forEach(async (track_url) => {
         
         const audioBuffer = await downloadMP3(track_url);
