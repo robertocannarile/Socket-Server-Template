@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (matchResult) {
           trackIndex = parseInt(matchResult[1], 10);
-          console.log(trackIndex); // Stampa: 0 (come numero intero)
+          // console.log(trackIndex); // Stampa: 0 (come numero intero)
         } else {
           console.log("Nessuna corrispondenza trovata.");
         }
@@ -353,9 +353,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function playIndexTrackMP3(audioBuffers, index) {
     try {
 
-      if (currentAudioSource) {
+      /*if (currentAudioSource) {
         currentAudioSource.stop();
-      }
+      }*/
       // Crea un buffer source node
       audioSource = audioContext.createBufferSource();
 
