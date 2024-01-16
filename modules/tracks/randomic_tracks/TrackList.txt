@@ -1,9 +1,0 @@
-0 = NokiaTune
-1 = Is
-2 = There
-3 = Anyone?
-
-4 = If in my head is full of harmony, melody...
-
-5 = DoubleCough
-6 = LaserKnife
