@@ -274,28 +274,39 @@ document.addEventListener('DOMContentLoaded', function () {
       randomic_tracks_url.forEach(async (track_url) => {
         
 
+        // ottieni con la regex l'index della traccia dall'url (nome file)
         const matchResult = track_url.match(/\/(\d+)\.mp3$/);
         let trackIndex = -1;
 
         if (matchResult) {
           trackIndex = parseInt(matchResult[1], 10);
-          console.log(trackIndex); // Stampa: 0 (come numero intero)
+          console.log(trackIndex); // Stampa il numero della traccia
         } else {
           console.log("Nessuna corrispondenza trovata.");
         }
 
         const audioBuffer = await downloadMP3(track_url);
-        audioBuffers[trackIndex] = audioBuffer;
-        
-        //console.log("TRACCE DA scaricate " + audioBuffers);
+
+        // usa l'index estratto per inserire al giusto posto la traccia nell'array
+        audioBuffers[trackIndex] = audioBuffer; 
 
       
       });
 
       // queste sono le tracce globali(quelle che vengono riprodotte da tutti i dispositivi)
       randomic_tracks_url.forEach(async (track_url) => {
+        const matchResult = track_url.match(/\/(\d+)\.mp3$/);
+        let trackIndex = -1;
+
+        if (matchResult) {
+          trackIndex = parseInt(matchResult[1], 10);
+          console.log(trackIndex); // Stampa il numero della traccia
+        } else {
+          console.log("Nessuna corrispondenza trovata.");
+        }
+
         const globalaudioBuffer = await downloadMP3(track_url);
-        globalAudioBuffers.push(globalaudioBuffer);
+        globalAudioBuffers[trackIndex] = globalaudioBuffer;
       });
       
 
