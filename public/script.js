@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
 
         const matchResult = track_url.match(/\/(\d+)\.mp3$/);
-        const trackIndex = -1;
+        let trackIndex = -1;
 
         if (matchResult) {
           trackIndex = parseInt(matchResult[1], 10);
