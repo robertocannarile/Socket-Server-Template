@@ -272,7 +272,9 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // download tracce randomic
       randomic_tracks_url.forEach(async (track_url) => {
+        
         const audioBuffer = await downloadMP3(track_url);
+        console.log("SCARICATA LA TRACCIA " + track_url);
         audioBuffers.push(audioBuffer);
       });
 
