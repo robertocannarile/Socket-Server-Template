@@ -382,9 +382,9 @@ document.addEventListener('DOMContentLoaded', function () {
   function playGlobalIndexTrackMP3(globalAudioBuffers, index) {
     try {
 
-      if (currentGlobalAudioSource) {
+      /*if (currentGlobalAudioSource) {
         currentGlobalAudioSource.stop();
-      }
+      }*/
       // Crea un buffer source node
       globalAudioSource = audioContext.createBufferSource();
 
