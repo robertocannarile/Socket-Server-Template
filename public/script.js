@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // let controlTD2 = document.querySelector('.controlTD2');
 
   let allowMediaContentButtonAndDownload = document.querySelector('.allowAudioSourceAndDownload');
+  let debuButton = document.querySelector('.debuButton');
   
   // debug input
   //let debugReadyButton = document.querySelector('.debugReadyButton');
@@ -89,6 +90,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
+  debuButton.addEventListener('click', function () {
+
+    playDebug(globalAudioBuffers, 1);
+
+  });
 
 
 
@@ -407,4 +413,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+
+  function playDebug(globalAudioBuffers, index) {
+    try {
+      const audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
+
+      let source;
+      /*if (currentGlobalAudioSource) {
+        currentGlobalAudioSource.stop();
+      }*/
+      // Crea un buffer source node
+      source = audioContext2.createBufferSource();
+
+      // Collega il buffer al buffer source
+      source.buffer = globalAudioBuffers[index];
+
+      // Collega il buffer source al contesto audio
+      source.connect(audioContext.destination);
+
+      // Riproduci il suono
+      source.start();
+
+      mp3LabelStatus.textContent = "track: " + 'playing';
+
+    } catch (error) {
+      console.error('Error while playing the MP3 file:', error);
+      mp3LabelStatus.textContent = "track error: " + error;
+    }
+  }
 });
