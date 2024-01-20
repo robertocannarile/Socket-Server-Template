@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function () {
       source.buffer = globalAudioBuffers[index];
 
       // Collega il buffer source al contesto audio
-      source.connect(audioContext.destination);
+      source.connect(audioContext2.destination);
 
       // Riproduci il suono
       source.start();
