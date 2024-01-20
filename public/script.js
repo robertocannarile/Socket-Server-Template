@@ -413,11 +413,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
+  const audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
   function playDebug(globalAudioBuffers, index) {
     try {
-      const audioContext2 = new (window.AudioContext || window.webkitAudioContext)();
-
+      
       let source;
       /*if (currentGlobalAudioSource) {
         currentGlobalAudioSource.stop();
