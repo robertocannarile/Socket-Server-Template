@@ -25,7 +25,7 @@ fs.readdir(randomicTracksFolderPath, (err, files) => {
     // Itera sui file
     files.forEach((file) => {
         // Crea il link per il file
-        const fileLink = `${serverDomain}/download/${encodeURIComponent(file)}`;
+        const fileLink = `${serverDomain}/download/randomic/${encodeURIComponent(file)}`;
         randomicTracksUrl.push(fileLink);
         //console.log('Link per scaricare il file:', fileLink);
     });
@@ -47,9 +47,8 @@ fs.readdir(gloablTracksFolderPath, (err, files) => {
     // Itera sui file
     files.forEach((file) => {
         // Crea il link per il file
-        const fileLink = `${serverDomain}/download/${encodeURIComponent(file)}`;
-        globalTracksUrl.push(fileLink);
-        //console.log('Link per scaricare il file:', fileLink);
+        const fileLinkGlobal = `${serverDomain}/download/global/${encodeURIComponent(file)}`;
+        globalTracksUrl.push(fileLinkGlobal);
     });
 
     setGlobalClientTracksConfiguratorUrl(globalTracksUrl);
