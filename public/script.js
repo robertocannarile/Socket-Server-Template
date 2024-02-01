@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       // queste sono le tracce globali(quelle che vengono riprodotte da tutti i dispositivi)
-      randomic_tracks_url.forEach(async (track_url) => {
+      global_tracks_url.forEach(async (track_url) => {
 
         const matchResult = track_url.match(/\/(\d+)\.mp3$/);
         let trackIndex = -1;
