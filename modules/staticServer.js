@@ -2,9 +2,9 @@
 const express = require("express");
 const path = require("path");
 
-
 const tracksFolderPath = path.join(__dirname, 'tracks');
 const randomicTracksFolderPath = path.join(tracksFolderPath, 'randomic_tracks');
+const globalTracksFolderPath = path.join(tracksFolderPath, 'global_tracks');
 
 const createStaticServer = (publicFolder = "public") => {
   const app = express();
@@ -24,10 +24,25 @@ const createStaticServer = (publicFolder = "public") => {
     },
   }));
 
-  // Aggiungi una route per gestire i download
-  app.get('/download/:filename', (req, res) => {
+  // Aggiungi una route generica per gestire i download
+  app.get('/download/:folder/:filename', (req, res) => {
+    const folder = req.params.folder;
     const filename = req.params.filename;
-    const filePath = path.join(randomicTracksFolderPath, filename);
+
+    let folderPath;
+
+    // Determina la directory in base al tipo di traccia (randomic o global)
+    if (folder === 'randomic') {
+      folderPath = randomicTracksFolderPath;
+    } else if (folder === 'global') {
+      folderPath = globalTracksFolderPath;
+    } else {
+      // Se il tipo di traccia non è valido, restituisci un errore
+      res.status(400).send('Invalid track type');
+      return;
+    }
+
+    const filePath = path.join(folderPath, filename);
 
     // Invia il file come risposta alla richiesta
     res.sendFile(filePath);
