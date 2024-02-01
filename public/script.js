@@ -306,7 +306,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const globalaudioBuffer = await downloadMP3(track_url);
-
         globalAudioBuffers[trackIndex] = globalaudioBuffer;
       });
       
