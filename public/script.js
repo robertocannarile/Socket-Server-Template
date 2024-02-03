@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  const DEBUG_MODE = false;
+
   // indica a chi è rivolto il messaggio (partecipanti esperienza, se è per TouchDesigner o al server)
   const MessageTarget = {
     PartecipantClient: "partecipant_client",
@@ -69,24 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /*debugReadyButton.addEventListener('click', function () {
   });*/
 
-  allowMediaContentButtonAndDownload.addEventListener('click', function () {
 
-
-                    // Aspetta 5 secondi prima di nascondere il bottone e il background
-                    setTimeout(function() {
-                      document.querySelector('.button-container').style.display = 'none';
-                      document.querySelector('.background-button').style.display = 'none';
-                  }, 5000); // 5000 millisecondi = 5 secondi
-
-                  document.querySelector('video').play();
-             
-
-    allowAudioContextAndDownloadAudioBuffers();
-
-
-
-    
-  });
 
 
 
@@ -100,17 +85,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const clienIdLabel = document.getElementById('labelIdVisualization');
   const mp3LabelStatus = document.getElementById('mp3DownloadStatus');
 
+  const overlay = document.getElementById('overlay'); // elementID overlay dell'allow content iniziale
 
 
 
 
 
 
-
-
-
-
-
+  allowMediaContentButtonAndDownload.addEventListener('click', async function () {
+    overlay.classList.add('hidden');
+    await allowAudioContextAndDownloadAudioBuffers();
+    document.querySelector('video').play();
+  });
 
 
 
@@ -247,7 +233,9 @@ document.addEventListener('DOMContentLoaded', function () {
     clientUniqueId = data.clientId;
 
     // Aggiorna il contenuto della label
-    clienIdLabel.textContent = "id: " + clientUniqueId;
+    if (DEBUG_MODE) {
+      clienIdLabel.textContent = "id: " + clientUniqueId;
+    }
   }
   
   
@@ -313,12 +301,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Aggiorna lo stato notificando che tutti
       // i media dell'esperienza sono stati scaricati
-      mp3LabelStatus.textContent = "track: " + 'done, ready to play mp3';
+      if (DEBUG_MODE) {
+        mp3LabelStatus.textContent = "track: " + 'done, ready to play mp3'; 
+      }
       sendReadyToServer();
 
     } catch (error) {
       console.error('Error while downloading and decoding the MP3 file:', error);
-      mp3LabelStatus.textContent = "track error: " + error;
+      if (DEBUG_MODE) { 
+        mp3LabelStatus.textContent = "track error: " + error;
+      }
     }
   }
 
@@ -326,7 +318,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Funzione scarica e restituisce il buffer MP3  
   async function downloadMP3(mp3Url) {
     try {
-      mp3LabelStatus.textContent = "track: " + 'downloading';
+
+      if (DEBUG_MODE) { 
+        mp3LabelStatus.textContent = "track: " + 'downloading';
+      }
+      
 
       // Effettua una richiesta per ottenere il file MP3
       const response = await fetch(mp3Url);
@@ -341,7 +337,10 @@ document.addEventListener('DOMContentLoaded', function () {
       return audioBuffer;
     } catch (error) {
       console.error('Error while downloading the MP3 file:', error);
-      mp3LabelStatus.textContent = "track error: " + error;
+
+      if (DEBUG_MODE) {
+        mp3LabelStatus.textContent = "track error: " + error;
+      }
       throw error; // Puoi scegliere di gestire l'errore in modo diverso se necessario
     }
   }
@@ -369,11 +368,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
       currentAudioSource  = audioSource;
 
-      mp3LabelStatus.textContent = "track: " + 'playing';
+      
+      if (DEBUG_MODE) {
+        mp3LabelStatus.textContent = "track: " + 'playing';
+      }
+      
 
     } catch (error) {
       console.error('Error while playing the MP3 file:', error);
-      mp3LabelStatus.textContent = "track error: " + error;
+      if (DEBUG_MODE) { 
+        mp3LabelStatus.textContent = "track error: " + error;
+      }
+      
     }
   }
 
@@ -398,11 +404,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
       currentGlobalAudioSource  = globalAudioSource;
 
-      mp3LabelStatus.textContent = "track: " + 'playing';
+
+      if (DEBUG_MODE) { 
+        mp3LabelStatus.textContent = "track: " + 'playing';
+      }
+      
 
     } catch (error) {
       console.error('Error while playing the MP3 file:', error);
-      mp3LabelStatus.textContent = "track error: " + error;
+
+      if (DEBUG_MODE) { 
+        mp3LabelStatus.textContent = "track error: " + error;
+      }
     }
   }
 
