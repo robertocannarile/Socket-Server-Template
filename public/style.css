@@ -193,7 +193,7 @@ button {
 
   video{
     position: absolute;
-    z-index: -1;
+    z-index: 998;
 
     object-fit: cover;
     overflow-clip-margin: content-box;
