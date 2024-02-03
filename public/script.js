@@ -94,10 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   allowMediaContentButtonAndDownload.addEventListener('click', async function () {
     allowMediaContentButtonAndDownload.disabled = true;
+    await allowAudioContextAndDownloadAudioBuffers();
     overlay.classList.add('hidden');
     document.querySelector('video').play();
-    await allowAudioContextAndDownloadAudioBuffers();
-    
   });
 
 
