@@ -164,7 +164,9 @@ button {
     cursor: pointer;
     width: 30%;
     height: 50px;
-    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+    background-image: linear-gradient(to top, #fdadad 0%, #fff 80%, #FDFDFD 100%);
+    
+    /* background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%); */
     border-radius: 30px;
     border: 1px solid #8F9092;
     transition: all 0.2s ease;
@@ -236,7 +238,7 @@ label {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 255, 1);
+    background-color: #fdfdfd;
     display: flex;
     justify-content: center;
     align-items: center;
