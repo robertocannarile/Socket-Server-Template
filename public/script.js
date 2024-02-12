@@ -109,15 +109,18 @@ document.addEventListener('DOMContentLoaded', function () {
     handleServerMessage(event.data);
   });
 
+
   // evento errore connessione
   ws.addEventListener("error", (error) => {
-    window.alert('websocket closed');
+    // invia foto piedi
+    window.alert('Esperienza chiusa');
     console.log('websocket closed');
   });
 
   // evento chiusura connessione
   ws.addEventListener("close", (event) => {
-    window.alert('websocket closed');
+    // invia foto piedi
+    window.alert('Esperienza chiusa');
     console.log('websocket closed');
   });
 
