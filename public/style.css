@@ -266,3 +266,9 @@ label {
   max-width: 100%; /* Imposta una larghezza massima, puoi anche usare un valore fisso in pixel */
   width: auto; /* Imposta la larghezza su 'auto' per adattarsi al contenuto */
 }
+
+
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
