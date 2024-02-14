@@ -12,3 +12,6 @@
 8. = Risate
 9. = Risate
 10. = Risate
+
+11. = Connessi George = 20 sec
+12. = Connessi Nicole = 26 sec
