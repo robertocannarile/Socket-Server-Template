@@ -1,17 +1,34 @@
 0.
 1.
 2.
-3. = I'm Here/Sono Qui
+3. = I'm Here/Sono Qui	--4930 --4940 -4960 --4990
 
-4. = Appuntamento
-5. = Meteo
+4. = Appuntamento	--6300
+5. = Meteo	--6400
 
 
-6. = Risate
-7. = Risate
-8. = Risate
-9. = Risate
-10. = Risate
+6. = Risate	--6100
+7. = Risate	--6100
+8. = Risate	--6100
+9. = Risate	--6100
+10. = Risate	--6100
 
-11. = Connessi George = 20 sec
-12. = Connessi Nicole = 26 sec
+11. = Connessi George = 20 sec	--9292
+12. = Connessi Nicole = 26 sec	--9292
+
+
+13. = Zero/One  M = 9 sec	--9900
+14. = Zero/One  F = 8 sec	--9900
+
+15. = Imposta Un timer di 8 min F = 2 sec	--5800
+16. = Manda un messaggio a Antoni = 2 sec	--5800
+17. = OK Google Chiama-Ethan = 3 sec 		--5800
+
+18. = fantasmi Ethan = 2 sec	-- 5700
+19. = Fantasmi Nicole = 3 sec   -- 5700
+
+20. = In/Out_Ethan = 16 sec	-- 9900
+21. = In/Out_ Nicole = 20 sec   -- 9900
+
+22. = Veloci_Antoni = 22 sec	-- 9300
+23. = Veloci_Emily = 23 sec   -- 9320

@@ -1,5 +1,9 @@
 0. From Voice to Ronzio
 
-1. Un'apparato fatto di cellule cellule cellule = 10 sec
+1. Un'apparato fatto di cellule cellule cellule = 10 sec	--6760
 
-2. BlackBox = 10 sec
+2. BlackBox = 10 sec	--8750
+
+3. Ronzio + Crunch = 30 sec	--7100
+
+4. Ronzio TO TONO FINALE = 1 MIN	--13950
